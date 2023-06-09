@@ -7,12 +7,18 @@ const initialSnake = [
   { x: 0, y: 11 },
   { x: 0, y: 12 },
 ];
-
+const initialoldSnake = [
+  { x: 0, y: 10 },
+  { x: 0, y: 11 },
+];
 const initialFood = { x: 5, y: 5 };
 
-let nuevadireccion="";
-let direccion="";
+let nuevadireccion="RIGHT";
+let direccion="RIGHT";
 let setintervalo=170;
+let suma_tecla=0;
+let oldsnake=initialoldSnake;
+let actualsnake=initialoldSnake;
 const DIRECTIONS = {
   UP: 'UP',
   DOWN: 'DOWN',
@@ -33,6 +39,7 @@ const SnakeGame = () => {
   const [snake, setSnake] = useState(initialSnake);
   const [food, setFood] = useState(initialFood);
   const [direction, setDirection] = useState(DIRECTIONS.RIGHT);
+  const [tecla_pulsada, setTecla_pulsada] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [level, setLevel] = useState(1);
@@ -44,15 +51,12 @@ const SnakeGame = () => {
       return () => clearInterval(interval);
     }
   }, [snake, isRunning]);
-/*
-  useEffect(() => {
-    handleStart();
-  }, []);
-*/
   const handleStart = () => {
     setSnake(initialSnake);
     setFood(initialFood);
     setDirection(DIRECTIONS.RIGHT);
+    nuevadireccion="RIGHT";
+    direccion="RIGHT";
     setGameOver(false);
     setScore(0);
     setLevel(1);
@@ -112,24 +116,30 @@ const SnakeGame = () => {
       } else {
         setSnake(newSnake);
       }
+      actualsnake=snake;
     }
   };
 
   const handleKeyDown = (event) => {
-    nuevadireccion = getNewDirection(event.keyCode);
-    console.log("1---");
-    console.log("Direction " + nuevadireccion);
-    console.log("newDirection " + nuevadireccion);
-    console.log("2---");
-    if (nuevadireccion) {
-      setDirection(nuevadireccion);
-      direccion=nuevadireccion;
-      console.log("Direction_seteada: " + nuevadireccion);
+    //si pulsamos espacio paramos y iniciamos.
+    if ( event.keyCode === 32) {
+      if (isRunning) {
+        handleStop();
+      } else {
+        handleStart();
+      }
     }
+    let head = { ...snake[0] };
+
+      nuevadireccion=getNewDirection(event.keyCode);
+      if (nuevadireccion) {
+        setDirection(nuevadireccion);
+        moveSnake
+        direccion=nuevadireccion;
+      }
   };
 
   const getNewDirection = (keyCode) => {
-    console.log("keyCode: "+keyCode)
     if (
         (keyCode===38 && direccion!="DOWN") ||
         (keyCode===40 && direccion!="UP") ||
@@ -138,16 +148,12 @@ const SnakeGame = () => {
     ) {
         switch (keyCode) {
         case 38: // ArrowUp
-            console.log(DIRECTIONS.UP)
             return DIRECTIONS.UP;
         case 40: // ArrowDown
-            console.log(DIRECTIONS.DOWN)
             return DIRECTIONS.DOWN;
         case 37: // ArrowLeft
-            console.log(DIRECTIONS.LEFT)
             return DIRECTIONS.LEFT;
         case 39: // ArrowRight
-            console.log(DIRECTIONS.RIGHT)
             return DIRECTIONS.RIGHT;
         default:
             return null;
@@ -210,8 +216,8 @@ const SnakeGame = () => {
                         :
                         "snake-segment"}
                     style={{
-                    top: `${segment.y * 20}px`,
-                    left: `${segment.x * 20}px`,
+                    top: `${segment.y * 19}px`,
+                    left: `${segment.x * 19}px`,
                     }}
                 />
             ))}
@@ -219,8 +225,8 @@ const SnakeGame = () => {
             <div
               className="food"
               style={{
-                top: `${food.y * 20}px`,
-                left: `${food.x * 20}px`,
+                top: `${food.y * 19}px`,
+                left: `${food.x * 19}px`,
               }}
             />
           </>
