@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import '../../../index.css'
 import './Snake.css';
 import Navbar from '../../../components/Navbar/Navbar'
+
 
 const initialSnake = [
   { x: 0, y: 10 },
@@ -71,6 +73,15 @@ const SnakeGame = () => {
   const handleRestart = () => {
     handleStop();
     handleStart();
+  };
+  
+  const handleTeclado = (tecla) => {
+    nuevadireccion=getNewDirection(tecla);
+    if (nuevadireccion) {
+      setDirection(nuevadireccion);
+      moveSnake
+      direccion=nuevadireccion;
+    }
   };
 
   const moveSnake = () => {
@@ -234,14 +245,22 @@ const SnakeGame = () => {
       </div>
       <div className="game-controls">
         {!isRunning ? (
-          <button className='botones_juegos' onClick={handleStart}>Empezar</button>
+          <button className='botones_juegos_start' onClick={handleStart}>Start</button>
         ) : (
-          <button className='botones_juegos' onClick={handleStop}>Parar</button>
+          <button className='botones_juegos_start' onClick={handleStop}>Stop</button>
         )}
-        <button className='botones_juegos' onClick={handleRestart}>Reiniciar</button>
+        <button className='botones_juegos_start' onClick={handleRestart}>Restart</button>
       </div>
-      <div>Direccion: {direccion}</div>
-      <div>NUEVA Direccion: {nuevadireccion}</div>
+      <div>
+        <button className='botones_juegos' onClick={() => handleTeclado(38)}>⬆️</button>
+      </div>
+      <div>
+      <button className='botones_juegos' onClick={() => handleTeclado(37)}>⬅️</button>
+      <button className='botones_juegos' onClick={() => handleTeclado(40)}>⬇️</button>
+      <button className='botones_juegos' onClick={() => handleTeclado(39)}>➡️</button>
+      </div>
+      {/* <div>Direccion: {direccion}</div> */}
+      {/* <div>NUEVA Direccion: {nuevadireccion}</div> */}
       
     </div>
   );

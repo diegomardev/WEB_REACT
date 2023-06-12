@@ -9,7 +9,14 @@
     justify-content: space-around;
     margin: 0 auto; /* Con esto se centra al medio */
 }
-  
+.game-controls{
+  width: 380px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 auto; /* Con esto se centra al medio */
+}
   .snake-segment {
     position: absolute;
     width: 19px;
@@ -98,12 +105,42 @@
   }
   .game-info {
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
-    width: 380px;
+    width: 340px;
     position: center;
     display: inline-flex;
     border-radius: 20px;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+  }
+  .botones_juegos_start{
+    margin: 5px;
+    font-size: 18pt;
+    border-radius: 50px;
+    border: 1px solid transparent;
+    padding: 0.4em 1.2em;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.5s;
+    min-width: 140px;
+  }
+  @media(max-width: 768px){
+    h1{
+      font-size: 3.2em;
+      line-height: 0.1em;
+    }
+    .botones_juegos{
+      margin: 5px;
+      font-size: 18pt;
+      border-radius: 50px;
+      border: 1px solid transparent;
+      padding: 0.4em 1.2em;
+      font-family: inherit;
+      background-color: #1a1a1a;
+      cursor: pointer;
+      transition: border-color 0.5s;
+      min-width: 40px;
+    }
   }
