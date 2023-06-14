@@ -252,12 +252,12 @@ const SnakeGame = () => {
         <button className='botones_juegos_start' onClick={handleRestart}>Restart</button>
       </div>
       <div>
-        <button className='botones_juegos' onClick={() => handleTeclado(38)}>⬆️</button>
+        <button className='botones_juegos_direcion' onClick={() => handleTeclado(38)}>⬆️</button>
       </div>
       <div>
-      <button className='botones_juegos' onClick={() => handleTeclado(37)}>⬅️</button>
-      <button className='botones_juegos' onClick={() => handleTeclado(40)}>⬇️</button>
-      <button className='botones_juegos' onClick={() => handleTeclado(39)}>➡️</button>
+      <button className='botones_juegos_direcion' onClick={() => handleTeclado(37)}>⬅️</button>
+      <button className='botones_juegos_direcion' onClick={() => handleTeclado(40)}>⬇️</button>
+      <button className='botones_juegos_direcion' onClick={() => handleTeclado(39)}>➡️</button>
       </div>
       {/* <div>Direccion: {direccion}</div> */}
       {/* <div>NUEVA Direccion: {nuevadireccion}</div> */}

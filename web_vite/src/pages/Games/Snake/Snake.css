@@ -126,12 +126,31 @@
     transition: border-color 0.5s;
     min-width: 140px;
   }
+  .botones_juegos_start:hover {
+    filter: drop-shadow(0 0 1em #646cffaa);
+  }
+  .botones_juegos_direcion{
+    margin: 5px;
+    font-size: 18pt;
+    border-radius: 50px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    /* font-weight: 500; */
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.5s;
+    /* height: 40px; */
+  }
+  .botones_juegos_direcion:hover {
+    filter: drop-shadow(0 0 1em #646cffaa);
+  }
   @media(max-width: 768px){
     h1{
       font-size: 3.2em;
       line-height: 0.1em;
     }
-    .botones_juegos{
+    .botones_juegos_direcion{
       margin: 5px;
       font-size: 18pt;
       border-radius: 50px;
@@ -153,12 +172,15 @@
       color: #747bff;
     }
     .botones_juegos_start{
-      background-color: #f9f9f9;
+      background-color: rgb(232,240,254);
     }
     button {
       background-color: #f9f9f9;
     }
     .botones_juegos{
       background-color: #f9f9f9;
+    }
+    .botones_juegos_direcion{
+      background-color: rgb(254, 232, 232);
     }
   }
