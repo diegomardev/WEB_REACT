@@ -63,7 +63,7 @@ function Login() {
       <h1 className="read-the-docs">
           Login
       </h1>
-      <h1>{user.name}</h1>
+      <div className="name_login">{user.name}</div>
       <a  href="https://www.instagram.com/_.diegomar._/" target="_blank">
         <img
           className="avatar_image"
