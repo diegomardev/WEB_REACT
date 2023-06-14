@@ -144,3 +144,8 @@
       min-width: 40px;
     }
   }
+  @media (prefers-color-scheme: light) {
+    .botones_juegos_start{
+      background-color: #f9f9f9;
+    }
+  }
