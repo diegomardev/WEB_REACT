@@ -164,14 +164,16 @@
       min-width: 40px;
     }
   }
+  .tables-container {
+    line-height: 1;
+  }
   @media (max-width: 767px) {
     .top-scores-table {
       display: block;
       margin-top: 100px;
     }
     .tables-container {
-      margin-bottom: 10px;
-      lineHeight: '0.8';
+      line-height: 1;
     }
   }
   @media (prefers-color-scheme: light) {

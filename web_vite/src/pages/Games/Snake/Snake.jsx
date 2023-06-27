@@ -176,14 +176,16 @@ const SnakeGame = () => {
     // Si el nombre es muy largo, se redondeará a 10 caracteres máximo
     let playerName = 'Player'
     playerName = prompt('Ingresa tu nombre(max 10 caracteres):');
-    if(playerName.length > 10){
-      playerName = prompt('Ingresa tu nombre(MAX 10 CARACTERES):');
-    }
-    if(playerName.length > 10){
-      playerName = prompt('ULTIMA OPORTUNIDAD: Ingresa tu nombre(MAX 10 CARACTERES):');
+    if(playerName === null){
+      playerName = "Player"
+      alert("Tu puntuación se guardará como: " + playerName)
     }
     if(playerName.length > 10){
       playerName = playerName.substring(0,10);
+      alert("Tu puntuación se guardará como: " + playerName)
+    }
+    if(playerName.length < 1){
+      playerName = "Player"
       alert("Tu puntuación se guardará como: " + playerName)
     }
     if(playerName.length <= 10){
@@ -312,8 +314,17 @@ const SnakeGame = () => {
  
   return (
     <div>
-      <div style={{ position: 'absolute', top: '65px', right: '15px' }}>
-        <table className="top-scores-table tables-container" style={{ lineHeight: '1' }}>
+    <div>
+      <Navbar/>
+    </div>
+      <h1>Snake Game</h1>
+      <div className="game-info">
+          <div>Score: {score}</div>
+          <div>Level: {level}</div>
+        </div>
+      <div className="game-board" tabIndex={0}>
+      <div className='tables-container' style={{ position: 'absolute', top: '2px', right: '5px' }}>
+        <table>
           <thead>
             <tr>
               <th>Name</th>
@@ -330,15 +341,6 @@ const SnakeGame = () => {
           </tbody>
         </table>
       </div>
-       <div>
-      <Navbar/>
-    </div>
-      <h1>Snake Game</h1>
-      <div className="game-info">
-          <div>Score: {score}</div>
-          <div>Level: {level}</div>
-        </div>
-      <div className="game-board" tabIndex={0}>
         {gameOver ? (
           <div className="game-over">Game Over</div>
         ) : (
