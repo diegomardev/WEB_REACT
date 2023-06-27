@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { createClient } from '@supabase/supabase-js';
 import '../../../index.css'
 import './Snake.css';
 import Navbar from '../../../components/Navbar/Navbar'
 
+// Configura tu conexión a Supabase
+const supabaseUrl = "https://dnaxvipqtbtqnzpeoovp.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuYXh2aXBxdGJ0cW56cGVvb3ZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY2Njk3MTAsImV4cCI6MjAwMjI0NTcxMH0.a_1fjstV1Q9vU5YXJEcW5ZmIxnRvn0YZsdSblqYgOLM";
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const initialSnake = [
   { x: 0, y: 10 },
@@ -38,6 +43,8 @@ const getRandomPosition = () => {
 };
 
 const SnakeGame = () => {
+  const [topScores, setTopScores] = useState([]);
+  const [playerName, setPlayerName] = useState('');
   const [snake, setSnake] = useState(initialSnake);
   const [food, setFood] = useState(initialFood);
   const [direction, setDirection] = useState(DIRECTIONS.RIGHT);
@@ -47,6 +54,80 @@ const SnakeGame = () => {
   const [level, setLevel] = useState(1);
   const [isRunning, setIsRunning] = useState(false);
 
+  // Define la función para leer datos
+  async function leerDatos() {
+    try {
+      // Nombre de la tabla que deseas leer
+      const tableName = 'Top_Score_Snake';
+
+      // Realiza la consulta para obtener los datos
+      const { data, error } = await supabase.from(tableName).select().order('column_score', { ascending: false }).limit(5);
+
+      if (error) {
+        throw error;
+      }
+
+      setTopScores(data);
+      console.log('Datos leídos correctamente:', data);
+    } catch (error) {
+      console.error('Error al leer datos:', error.message);
+    }
+  }
+
+  useEffect(() => {
+    leerDatos();
+  }, []);
+  async function actualizarPuntuacion(playerName, newScore, level) {
+    try {
+      
+      const tableName = 'Top_Score_Snake';
+      //const playerName = 'jaimito';
+      //const newScore = 24; // Nueva puntuación que quieres establecer
+  
+      // Obtén la puntuación actual de Fran desde la base de datos
+      const { data: playerData, error: playerError } = await supabase
+        .from(tableName)
+        .select('column_score')
+        .eq('column_name', playerName)
+        .single();
+      if (playerData) {
+        // Si la fila existe, actualiza la puntuación si es mayor
+        const currentScore = playerData.column_score;
+        if (newScore > currentScore) {
+          const { data, error } = await supabase
+            .from(tableName)
+            .update({ column_score: newScore , column_level: level})
+            .eq('column_name', playerName);
+          if (error) {
+            throw error;
+          }
+          console.log(`La puntuación de ${playerName}(${newScore}) se actualizó correctamente.`);
+          leerDatos();
+        } else {
+          console.log(`La puntuación actual de ${playerName}(${currentScore}) es igual o mayor que la nueva puntuación(${newScore}).`);
+        }
+      } else {
+        // Si la fila no existe, crea una nueva fila con el nombre y puntuación
+        const { data, error } = await supabase.from(tableName).insert([
+          { column_name: playerName, column_score: newScore, column_level: level }
+        ]);
+  
+        if (error) {
+          throw error;
+        }
+  
+        console.log(`Se creó una nueva fila para ${playerName} con la puntuación ${newScore}.`);
+        leerDatos();
+      }
+    } catch (error) {
+      console.error('Error al actualizar la puntuación:', error.message);
+    }
+  }
+  useEffect(() => {
+    if (gameOver) {
+      handleGameOver(score);
+    }
+  }, [gameOver]);
   useEffect(() => {
     if (isRunning) {
       const interval = setInterval(moveSnake, setintervalo);
@@ -84,8 +165,37 @@ const SnakeGame = () => {
     }
   };
 
+  const handleGameOver = (score) => {
+    // Aquí obtienes la puntuación final del jugador
+    const finalScore = score;
+  
+    // Muestra un cuadro de diálogo o utiliza alguna otra forma para obtener el nombre del jugador
+    // Por ejemplo, si quieres que el jugador ingrese su nombre en una ventana emergente, puedes usar la función prompt()
+    // Si no quieres mostrar nada, puedes usar la función alert()
+    // Por defecto, el nombre del jugador es "Player"
+    // Si el nombre es muy largo, se redondeará a 10 caracteres máximo
+    let playerName = 'Player'
+    playerName = prompt('Ingresa tu nombre(max 10 caracteres):');
+    if(playerName.length > 10){
+      playerName = prompt('Ingresa tu nombre(MAX 10 CARACTERES):');
+    }
+    if(playerName.length > 10){
+      playerName = prompt('ULTIMA OPORTUNIDAD: Ingresa tu nombre(MAX 10 CARACTERES):');
+    }
+    if(playerName.length > 10){
+      playerName = playerName.substring(0,10);
+      alert("Tu puntuación se guardará como: " + playerName)
+    }
+    if(playerName.length <= 10){
+      // Llama a la función para actualizar la puntuación
+      actualizarPuntuacion(playerName, finalScore, level);
+    }
+    
+  };
   const moveSnake = () => {
-    if (gameOver) return;
+    if (gameOver){
+      return;
+    }
 
     const head = { ...snake[0] };
 
@@ -202,6 +312,24 @@ const SnakeGame = () => {
  
   return (
     <div>
+      <div style={{ position: 'absolute', top: '65px', right: '10px' }}>
+        <table className="top-scores-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {topScores.map((score, index) => (
+              <tr key={index}>
+                <td>{score.column_name}</td>
+                <td>{score.column_score}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
        <div>
       <Navbar/>
     </div>
@@ -255,9 +383,9 @@ const SnakeGame = () => {
         <button className='botones_juegos_direcion' onClick={() => handleTeclado(38)}>⬆️</button>
       </div>
       <div>
-      <button className='botones_juegos_direcion' onClick={() => handleTeclado(37)}>⬅️</button>
-      <button className='botones_juegos_direcion' onClick={() => handleTeclado(40)}>⬇️</button>
-      <button className='botones_juegos_direcion' onClick={() => handleTeclado(39)}>➡️</button>
+        <button className='botones_juegos_direcion' onClick={() => handleTeclado(37)}>⬅️</button>
+        <button className='botones_juegos_direcion' onClick={() => handleTeclado(40)}>⬇️</button>
+        <button className='botones_juegos_direcion' onClick={() => handleTeclado(39)}>➡️</button>
       </div>
       {/* <div>Direccion: {direccion}</div> */}
       {/* <div>NUEVA Direccion: {nuevadireccion}</div> */}
