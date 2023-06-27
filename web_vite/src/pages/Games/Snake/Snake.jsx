@@ -312,8 +312,8 @@ const SnakeGame = () => {
  
   return (
     <div>
-      <div style={{ position: 'absolute', top: '65px', right: '10px' }}>
-        <table className="top-scores-table">
+      <div style={{ position: 'absolute', top: '65px', right: '15px' }}>
+        <table className="top-scores-table tables-container" style={{ lineHeight: '1' }}>
           <thead>
             <tr>
               <th>Name</th>

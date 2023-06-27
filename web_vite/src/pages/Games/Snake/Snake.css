@@ -169,6 +169,10 @@
       display: block;
       margin-top: 100px;
     }
+    .tables-container {
+      margin-bottom: 10px;
+      lineHeight: '0.8';
+    }
   }
   @media (prefers-color-scheme: light) {
     :root {
