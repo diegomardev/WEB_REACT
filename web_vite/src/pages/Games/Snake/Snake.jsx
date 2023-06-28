@@ -344,7 +344,7 @@ const SnakeGame = () => {
       <h1>Snake Game</h1>
       <div className="game-info">
           <div>Score: {score}</div>
-          <div>{playerName}</div>
+          <div className="game-player">{playerName}</div>
           <div>Level: {level}</div>
         </div>
       <div className="game-board" tabIndex={0}>
