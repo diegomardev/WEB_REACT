@@ -3,12 +3,14 @@ import { createClient } from '@supabase/supabase-js';
 import '../../../index.css'
 import './Snake.css';
 import Navbar from '../../../components/Navbar/Navbar'
+import confetti from 'canvas-confetti'
 
 // Configura tu conexión a Supabase
 const supabaseUrl = "https://dnaxvipqtbtqnzpeoovp.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuYXh2aXBxdGJ0cW56cGVvb3ZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY2Njk3MTAsImV4cCI6MjAwMjI0NTcxMH0.a_1fjstV1Q9vU5YXJEcW5ZmIxnRvn0YZsdSblqYgOLM";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+let puntos_iniciales=0;
 const initialSnake = [
   { x: 0, y: 10 },
   { x: 0, y: 11 },
@@ -53,7 +55,13 @@ const SnakeGame = () => {
   const [score, setScore] = useState(0);
   const [level, setLevel] = useState(1);
   const [isRunning, setIsRunning] = useState(false);
+  //al inicio de la aplicación, se ejecuta la función para leer si hay guardado algun jugador
 
+  useEffect(() => {
+    if(localStorage.getItem('playerName') !== null){
+      setPlayerName(localStorage.getItem('playerName'));
+    }
+  }, []);
   // Define la función para leer datos
   async function leerDatos() {
     try {
@@ -79,11 +87,7 @@ const SnakeGame = () => {
   }, []);
   async function actualizarPuntuacion(playerName, newScore, level) {
     try {
-      
-      const tableName = 'Top_Score_Snake';
-      //const playerName = 'jaimito';
-      //const newScore = 24; // Nueva puntuación que quieres establecer
-  
+      const tableName = 'Top_Score_Snake';  
       // Obtén la puntuación actual de Fran desde la base de datos
       const { data: playerData, error: playerError } = await supabase
         .from(tableName)
@@ -115,7 +119,6 @@ const SnakeGame = () => {
         if (error) {
           throw error;
         }
-  
         console.log(`Se creó una nueva fila para ${playerName} con la puntuación ${newScore}.`);
         leerDatos();
       }
@@ -144,7 +147,11 @@ const SnakeGame = () => {
     setScore(0);
     setLevel(1);
     setIsRunning(true);
-    setintervalo=170;
+    setintervalo = 170;
+    const player = topScores.find(item => item.column_name === playerName);
+    if(player){
+      puntos_iniciales = player.column_score;    
+    }
   };
 
   const handleStop = () => {
@@ -168,30 +175,43 @@ const SnakeGame = () => {
   const handleGameOver = (score) => {
     // Aquí obtienes la puntuación final del jugador
     const finalScore = score;
-  
     // Muestra un cuadro de diálogo o utiliza alguna otra forma para obtener el nombre del jugador
     // Por ejemplo, si quieres que el jugador ingrese su nombre en una ventana emergente, puedes usar la función prompt()
     // Si no quieres mostrar nada, puedes usar la función alert()
     // Por defecto, el nombre del jugador es "Player"
     // Si el nombre es muy largo, se redondeará a 10 caracteres máximo
     let playerName = 'Player'
-    playerName = prompt('Ingresa tu nombre(max 10 caracteres):');
-    if(playerName === null){
-      playerName = "Player"
-      alert("Tu puntuación se guardará como: " + playerName)
-    }
-    if(playerName.length > 10){
-      playerName = playerName.substring(0,10);
-      alert("Tu puntuación se guardará como: " + playerName)
-    }
-    if(playerName.length < 1){
-      playerName = "Player"
-      alert("Tu puntuación se guardará como: " + playerName)
-    }
-    if(playerName.length <= 10){
-      // Llama a la función para actualizar la puntuación
+    if(localStorage.getItem('playerName') !== null){
+      playerName = localStorage.getItem('playerName');
+      if(finalScore > puntos_iniciales){
+        confetti();
+      }
       actualizarPuntuacion(playerName, finalScore, level);
+      setPlayerName(playerName);
     }
+    else{
+      confetti();
+      playerName = prompt('Ingresa tu nombre(max 10 caracteres):');
+      if(playerName === null){
+        playerName = "Player"
+        alert("Tu puntuación se guardará como: " + playerName)
+      }
+      if(playerName.length > 10){
+        playerName = playerName.substring(0,10);
+        alert("Tu puntuación se guardará como: " + playerName)
+      }
+      if(playerName.length < 1){
+        playerName = "Player"
+        alert("Tu puntuación se guardará como: " + playerName)
+      }
+      if(playerName.length <= 10){
+        // Llama a la función para actualizar la puntuación
+        actualizarPuntuacion(playerName, finalScore, level);
+        localStorage.setItem('playerName', playerName);
+        setPlayerName(playerName);
+      }
+    }
+    
     
   };
   const moveSnake = () => {
@@ -229,13 +249,17 @@ const SnakeGame = () => {
         setFood(newFood);
         setSnake((prevSnake) => [head, ...prevSnake]);
         setScore((prevScore) => prevScore + 1);
-
         if ((score + 1) % 5 === 0) {
           setLevel((prevLevel) => prevLevel + 1);
           if(setintervalo>60){
             setintervalo=setintervalo-15;
           }
         }
+        let puntuacion_actual = score + 1;
+        //cada vez que comemos una fruta, actualizamos topScores con la puntuación del jugador que está jugando
+        actualizarPuntuacion(playerName, puntuacion_actual, level);
+        leerDatos();
+        console.log("actualizamos puntuacion")
       } else {
         setSnake(newSnake);
       }
@@ -320,6 +344,7 @@ const SnakeGame = () => {
       <h1>Snake Game</h1>
       <div className="game-info">
           <div>Score: {score}</div>
+          <div>{playerName}</div>
           <div>Level: {level}</div>
         </div>
       <div className="game-board" tabIndex={0}>
@@ -327,8 +352,8 @@ const SnakeGame = () => {
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Score</th>
+              <th>Top Player</th>
+              <th>Scores</th>
             </tr>
           </thead>
           <tbody>
