@@ -55,6 +55,7 @@ const SnakeGame = () => {
   const [score, setScore] = useState(0);
   const [level, setLevel] = useState(1);
   const [isRunning, setIsRunning] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
   //al inicio de la aplicación, se ejecuta la función para leer si hay guardado algun jugador
 
   useEffect(() => {
@@ -153,6 +154,16 @@ const SnakeGame = () => {
       puntos_iniciales = player.column_score;    
     }
   };
+
+  useEffect(() => {
+    if (showDialog) {
+      const newName = prompt('Enter a new name:');
+      if (newName) {
+        setPlayerName(newName);
+      }
+      setShowDialog(false);
+    }
+  }, [showDialog]);
 
   const handleStop = () => {
     setIsRunning(false);
@@ -257,7 +268,9 @@ const SnakeGame = () => {
         }
         let puntuacion_actual = score + 1;
         //cada vez que comemos una fruta, actualizamos topScores con la puntuación del jugador que está jugando
-        actualizarPuntuacion(playerName, puntuacion_actual, level);
+        if(localStorage.getItem('playerName') !== null){
+          actualizarPuntuacion(playerName, puntuacion_actual, level);
+        }
         leerDatos();
         console.log("actualizamos puntuacion")
       } else {
@@ -343,10 +356,13 @@ const SnakeGame = () => {
     </div>
       <h1>Snake Game</h1>
       <div className="game-info">
-          <div>Score: {score}</div>
-          <div className="game-player">{playerName}</div>
-          <div>Level: {level}</div>
+        <div>Score: {score}</div>
+        <div className="game-player">
+          <span className="player-name" onClick={() => setShowDialog(true)}>{playerName}</span>
+          <span className="hover-text">Change Player</span>
         </div>
+        <div>Level: {level}</div>
+      </div>
       <div className="game-board" tabIndex={0}>
       <div className='tables-container' style={{ position: 'absolute', top: '2px', right: '5px' }}>
         <table>

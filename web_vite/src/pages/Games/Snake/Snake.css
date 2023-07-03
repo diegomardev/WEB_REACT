@@ -116,9 +116,26 @@
     justify-content: space-between;
   }
   .game-player {
+    position: relative;
     font-size: 20px;
+    cursor: pointer;
   }
-  
+  .hover-text {
+    opacity: 0;
+    position: absolute;
+    top: 35px;
+    left: -24px;
+    background-color: #1a1a1a;
+    padding: 7px;
+    border: 1px solid #213547;
+    border-radius: 13px;
+    font-size: 10pt;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+  .game-player:hover .hover-text {
+    opacity: 1; /* Mostrar el texto al hacer hover */
+  }
   .botones_juegos_start{
     margin: 5px;
     font-size: 18pt;
