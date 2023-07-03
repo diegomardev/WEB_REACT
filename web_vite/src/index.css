@@ -73,18 +73,22 @@ button:focus-visible {
 }
 
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-  .botones_juegos{
-    background-color: #f9f9f9;
-  }
+html.light {
+  background-color: #ffffff;
+  color: #213547;
+}
+
+html.light button {
+  background-color: #f9f9f9;
+  color: #213547;
+}
+
+html.dark {
+  background-color: #242424;
+  color: #f9f9f9;
+}
+
+html.dark button {
+  background-color: #1a1a1a;
+  color: #f9f9f9;
 }

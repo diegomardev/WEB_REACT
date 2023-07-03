@@ -46,7 +46,7 @@ const getRandomPosition = () => {
 
 const SnakeGame = () => {
   const [topScores, setTopScores] = useState([]);
-  const [playerName, setPlayerName] = useState('');
+  const [playerName, setPlayerName] = useState('Player');
   const [snake, setSnake] = useState(initialSnake);
   const [food, setFood] = useState(initialFood);
   const [direction, setDirection] = useState(DIRECTIONS.RIGHT);
