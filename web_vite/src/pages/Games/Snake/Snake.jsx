@@ -354,7 +354,7 @@ const SnakeGame = () => {
     <div>
       <Navbar/>
     </div>
-      <h1>Snake Game</h1>
+      <h1 className="read-the-docs">Snake Game</h1>
       <div className="game-info">
         <div>Score: {score}</div>
         <div className="game-player">
