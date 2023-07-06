@@ -12,6 +12,9 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 let x = 0;
+function mayusPrimeraLetra(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 function Twitch_Chat() {
   const [count, setCount] = useState(0);
@@ -19,27 +22,30 @@ function Twitch_Chat() {
   const [url, setUrl] = useState('https://www.twitch.tv/kidi');
   const [channelName, setChannelName] = useState('kidi');
   const [cambiochannelName, setCambiochannelName] = useState('kidi');
-  const [messages, setMessages] = useState([
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    ''
-  ]);
-
+  const [colormessagechannel, setColormessagechannel] = useState('red');
+  const [messages, setMessages] = useState(['','','','','','','','','','']);
+  useEffect(() => {
+    if(localStorage.getItem('channelName') !== null){
+      setChannelName(localStorage.getItem('channelName'));
+    }
+  }, []);
   const client = new tmi.Client({
     channels: [channelName]
   });
-  client.connect();
 
-  const rotateMessages = (newMessage) => {
+  const rotateMessages = (newMessage, displayName, color) => {
+    if(color === undefined || color === null){
+      color = 'violet';
+    }
     setMessages((prevMessages) => {
-      const updatedMessages = [newMessage, ...prevMessages.slice(0, 9)];
+      const updatedMessages = [
+        {
+          message: newMessage,
+          displayName: displayName,
+          color: color
+        },
+        ...prevMessages.slice(0, 9)
+      ];
       return updatedMessages;
     });
   };
@@ -48,16 +54,19 @@ function Twitch_Chat() {
     // Ignora los mensajes enviados por el propio bot
     if (self) return;
 
-    setCount((prevCount) => (prevCount >= 9 ? 0 : prevCount + 1));
-    rotateMessages(`${tags['display-name']}: ${message}`);
-    //console.log(tags);
+    setCount((prevCount) => (prevCount >= 9 ? 0 : prevCount));
+    rotateMessages(message, (tags['display-name']+": "), tags.color);
+    setColormessagechannel(tags.color);
+    console.log(tags);
   };
 
   useEffect(() => {
+    client.connect();
     client.on('message', handleMessage);
 
     return () => {
       client.off('message', handleMessage);
+      client.disconnect();
     };
   }, [channelName]);
 
@@ -65,14 +74,23 @@ function Twitch_Chat() {
     x++;
     console.log(x);
   };
+  const handleKeyPress = (e, callback) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      callback();
+    }
+  };
   const changeURL = () => {
     const newChannelName = url.replace(/^https:\/\/www.twitch.tv\//, '');
     setChannelName(newChannelName);
     setCambiochannelName(newChannelName);
+    localStorage.setItem('channelName', newChannelName);
   };
   const changeChannel = () => {
-    setChannelName(cambiochannelName);
-    setUrl("https://www.twitch.tv/"+cambiochannelName)
+    setCambiochannelName(cambiochannelName.toLowerCase());
+    setChannelName(cambiochannelName.toLowerCase());
+    setUrl("https://www.twitch.tv/"+cambiochannelName.toLowerCase())
+    localStorage.setItem('channelName', cambiochannelName.toLowerCase());
   };
 
   return (
@@ -81,9 +99,6 @@ function Twitch_Chat() {
         <Navbar />
       </div>
       <h1 className="read-the-docs">Twitch Chat</h1>
-      <h1 className="click_text" onClick={handleClick}>
-        🎉
-      </h1>
       <div>
         <label htmlFor="urlInput">URL de Twitch:</label>
         <input
@@ -91,6 +106,7 @@ function Twitch_Chat() {
           type="text"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
+          onKeyDown={(e) => handleKeyPress(e, changeURL)}
         />
         <button className="botones" onClick={changeURL}>Cambiar URL</button>
       </div>
@@ -101,17 +117,23 @@ function Twitch_Chat() {
           type="text"
           value={cambiochannelName}
           onChange={(e) => setCambiochannelName(e.target.value)}
+          onKeyDown={(e) => handleKeyPress(e, changeChannel)}
         />
         <button className="botones" onClick={changeChannel}>Cambiar Canal</button>
       </div>
       <div className="card">
-        <div className="channelname">{channelName} Chat</div>
+        <div className="channelname">{mayusPrimeraLetra(channelName)} Chat</div>
         {messages.map((message, index) => (
-          <p key={index}>{message}</p>
+          <p key={index}>
+            <span style={{ color: message.color }}>
+              {message.displayName}
+            </span>
+            {message.message}
+          </p>
         ))}
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        Mesagges
       </p>
     </>
   );
