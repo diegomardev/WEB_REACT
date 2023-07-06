@@ -24,14 +24,16 @@ function Twitch_Chat() {
   const [cambiochannelName, setCambiochannelName] = useState('kidi');
   const [colormessagechannel, setColormessagechannel] = useState('red');
   const [messages, setMessages] = useState(['','','','','','','','','','']);
-  useEffect(() => {
-    if(localStorage.getItem('channelName') !== null){
-      setChannelName(localStorage.getItem('channelName'));
-    }
-  }, []);
   const client = new tmi.Client({
     channels: [channelName]
   });
+  useEffect(() => {
+    if(localStorage.getItem('channelName') !== null){
+      setChannelName(localStorage.getItem('channelName'));
+      setCambiochannelName(localStorage.getItem('channelName'));
+      setUrl("https://www.twitch.tv/"+localStorage.getItem('channelName'));
+    }
+  }, []);
 
   const rotateMessages = (newMessage, displayName, color) => {
     if(color === undefined || color === null){
@@ -57,7 +59,7 @@ function Twitch_Chat() {
     setCount((prevCount) => (prevCount >= 9 ? 0 : prevCount));
     rotateMessages(message, (tags['display-name']+": "), tags.color);
     setColormessagechannel(tags.color);
-    console.log(tags);
+    //console.log(tags);
   };
 
   useEffect(() => {
@@ -69,11 +71,6 @@ function Twitch_Chat() {
       client.disconnect();
     };
   }, [channelName]);
-
-  const handleClick = () => {
-    x++;
-    console.log(x);
-  };
   const handleKeyPress = (e, callback) => {
     if (e.key === "Enter") {
       e.preventDefault();
