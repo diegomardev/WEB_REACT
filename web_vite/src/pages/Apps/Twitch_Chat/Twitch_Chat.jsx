@@ -24,9 +24,6 @@ function Twitch_Chat() {
   const [cambiochannelName, setCambiochannelName] = useState('kidi');
   const [colormessagechannel, setColormessagechannel] = useState('red');
   const [messages, setMessages] = useState(['','','','','','','','','','']);
-  const client = new tmi.Client({
-    channels: [channelName]
-  });
   useEffect(() => {
     if(localStorage.getItem('channelName') !== null){
       setChannelName(localStorage.getItem('channelName'));
@@ -63,6 +60,9 @@ function Twitch_Chat() {
   };
 
   useEffect(() => {
+    const client = new tmi.Client({
+      channels: [channelName]
+    });
     client.connect();
     client.on('message', handleMessage);
 
