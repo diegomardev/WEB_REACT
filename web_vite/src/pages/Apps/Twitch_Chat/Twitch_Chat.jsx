@@ -32,7 +32,7 @@ function Twitch_Chat() {
     }
   }, []);
 
-  const rotateMessages = (newMessage, displayName, color) => {
+  const rotateMessages = (newMessage, displayName, color, date) => {
     if(color === undefined || color === null){
       color = 'violet';
     }
@@ -41,7 +41,8 @@ function Twitch_Chat() {
         {
           message: newMessage,
           displayName: displayName,
-          color: color
+          color: color,
+          date: date
         },
         ...prevMessages.slice(0, 9)
       ];
@@ -54,7 +55,14 @@ function Twitch_Chat() {
     if (self) return;
 
     setCount((prevCount) => (prevCount >= 9 ? 0 : prevCount));
-    rotateMessages(message, (tags['display-name']+": "), tags.color);
+    const date = new Date();
+    const hour = date.getHours();
+    const min = date.getMinutes();
+    const sec = date.getSeconds();
+    rotateMessages(message, (tags['display-name']+": "), tags.color, ("["+hour+":"+min+":"+sec+"] "));
+    if(tags.color === undefined || tags.color === null){
+      tags.color = 'violet';
+    };
     setColormessagechannel(tags.color);
     //console.log(tags);
   };
@@ -105,7 +113,7 @@ function Twitch_Chat() {
           onChange={(e) => setUrl(e.target.value)}
           onKeyDown={(e) => handleKeyPress(e, changeURL)}
         />
-        <button className="botones" onClick={changeURL}>Cambiar URL</button>
+        <button className="botones botones_twitch" onClick={changeURL}>Cambiar URL</button>
       </div>
       <div>
         <label htmlFor="channelInput">Canal de Twitch:</label>
@@ -118,14 +126,19 @@ function Twitch_Chat() {
         />
         <button className="botones" onClick={changeChannel}>Cambiar Canal</button>
       </div>
-      <div className="card">
-        <div className="channelname">{mayusPrimeraLetra(channelName)} Chat</div>
+      <div className="channelname" onClick={() => window.open(url, '_blank')}>{mayusPrimeraLetra(channelName)} Chat</div>
+      <div className="chat">
         {messages.map((message, index) => (
-          <p key={index}>
+          <p key={index} className="message">
+            <span style={{ color: message.color }}>
+              {message.date}
+            </span>
             <span style={{ color: message.color }}>
               {message.displayName}
+            </span >
+            <span>
+              {message.message}
             </span>
-            {message.message}
           </p>
         ))}
       </div>

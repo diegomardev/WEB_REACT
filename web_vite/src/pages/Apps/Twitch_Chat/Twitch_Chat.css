@@ -6,3 +6,16 @@
 .message_channel_color{
   color: violet;
 }
+.chat {
+	padding: 2em;
+	padding-top: 2px;
+	max-width: 600px;
+	display: inline-table;
+	align-items: center;
+}
+.message{
+  text-align: left;
+}
+.botones_twitch{
+  margin-top: 5px;
+}
