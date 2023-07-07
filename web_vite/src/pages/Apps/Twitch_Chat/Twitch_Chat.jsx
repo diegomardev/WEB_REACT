@@ -32,9 +32,17 @@ function Twitch_Chat() {
     }
   }, []);
 
-  const rotateMessages = (newMessage, displayName, color, date) => {
+  const rotateMessages = (newMessage, displayName, color, date, subscriber, mod) => {
     if(color === undefined || color === null){
       color = 'violet';
+    }
+    let suscriptor="";
+    if(subscriber){
+      suscriptor = "💰";
+    }
+    let moderador="";
+    if(mod){
+      moderador="🤺";
     }
     setMessages((prevMessages) => {
       const updatedMessages = [
@@ -42,7 +50,9 @@ function Twitch_Chat() {
           message: newMessage,
           displayName: displayName,
           color: color,
-          date: date
+          date: date,
+          subscriber: suscriptor,
+          mod: moderador
         },
         ...prevMessages.slice(0, 9)
       ];
@@ -59,7 +69,7 @@ function Twitch_Chat() {
     const hour = date.getHours();
     const min = date.getMinutes();
     const sec = date.getSeconds();
-    rotateMessages(message, (tags['display-name']+": "), tags.color, ("["+hour+":"+min+":"+sec+"] "));
+    rotateMessages(message, (" "+tags['display-name']+": "), tags.color, (hour+":"+min+" "), tags.subscriber, tags.mod);
     if(tags.color === undefined || tags.color === null){
       tags.color = 'violet';
     };
@@ -130,8 +140,14 @@ function Twitch_Chat() {
       <div className="chat">
         {messages.map((message, index) => (
           <p key={index} className="message">
-            <span style={{ color: message.color }}>
+            <span style={{ color: 'grey' }}>
               {message.date}
+            </span>
+            <span>
+              {message.mod}
+            </span>
+            <span>
+              {message.subscriber}
             </span>
             <span style={{ color: message.color }}>
               {message.displayName}
