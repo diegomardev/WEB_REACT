@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
 import '../../../index.css';
 import './Twitch_Chat.css';
 import Navbar from '../../../components/Navbar/Navbar';
-import confetti from 'canvas-confetti';
 import tmi from 'tmi.js';
 
-// Configura tu conexión a Supabase
-const supabaseUrl = "https://dnaxvipqtbtqnzpeoovp.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuYXh2aXBxdGJ0cW56cGVvb3ZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY2Njk3MTAsImV4cCI6MjAwMjI0NTcxMH0.a_1fjstV1Q9vU5YXJEcW5ZmIxnRvn0YZsdSblqYgOLM";
-const supabase = createClient(supabaseUrl, supabaseKey);
+const clinetId = "v5b1ducw1fveytsl3b7cck9yaf9exw";
+const clinetSecret = "5ivk0p6xskboge4ywxnlpe4teq75uy";
 
-let x = 0;
 function mayusPrimeraLetra(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function getTwitchAuthorization() {
+  let url = "https://id.twitch.tv/oauth2/token?client_id="+clinetId+"&client_secret="+clinetSecret+"&grant_type=client_credentials";
+  fetch(url, {
+  method: "POST",
+  })
+  .then((res) => res.json())
+  .then((data) => handleAuthorization(data));
+  return handleAuthorization(data);
+}
+
+function handleAuthorization(data) {
+  let { access_token, expires_in, token_type } = data;
+  console.log((`${token_type} ${access_token} ${expires_in}`))
+  return access_token;
 }
 
 function Twitch_Chat() {
@@ -24,14 +35,35 @@ function Twitch_Chat() {
   const [cambiochannelName, setCambiochannelName] = useState('kidi');
   const [colormessagechannel, setColormessagechannel] = useState('red');
   const [messages, setMessages] = useState(['','','','','','','','','','']);
-  useEffect(() => {
-    if(localStorage.getItem('channelName') !== null){
-      setChannelName(localStorage.getItem('channelName'));
-      setCambiochannelName(localStorage.getItem('channelName'));
-      setUrl("https://www.twitch.tv/"+localStorage.getItem('channelName'));
-    }
-  }, []);
+  const [viewers, setViewers] = useState(0);
+  
+  async function getStreams(sitio,canal) {
+    const endpoint = "https://api.twitch.tv/helix/streams?user_login="+canal;
+  
+    //DEJAR ESTA OPCION PARA PODER RECUPERAR EL ACCESS_TOKEN se mostrará en console de la pagina.
+    //let authorization = "Bearer "+ getTwitchAuthorization(); 
+    let authorization = "Bearer hyheaae6hbevgmthnhwzjxryl2cv5d";
 
+    let headers = {
+    "Authorization": authorization,
+    "Client-Id": clinetId,
+    };
+    const response = await fetch(endpoint, {headers});
+    if (response.ok) {
+      const data = await response.json();
+      if (data.data.length > 0) {
+        //console.log(data.data[0]);
+        const viewers = data.data[0].viewer_count;
+        setViewers(viewers);
+        //console.log(sitio+" "+viewers+" espectadores")
+      } else {
+        setViewers("No directo");//No está en directo
+        //console.log(sitio+" No directo 0 espectadores")
+      }
+    } else {
+      throw new Error("Error al obtener los datos del canal de Twitch.");
+    }
+  }
   const rotateMessages = (newMessage, displayName, color, date, subscriber, mod) => {
     if(color === undefined || color === null){
       color = 'violet';
@@ -58,6 +90,7 @@ function Twitch_Chat() {
       ];
       return updatedMessages;
     });
+    //getStreams("nuevo_mensaje",localStorage.getItem('channelName'));
   };
 
   const handleMessage = (channel, tags, message, self) => {
@@ -78,6 +111,7 @@ function Twitch_Chat() {
   };
 
   useEffect(() => {
+    getStreams("change_streamer",localStorage.getItem('channelName'));
     const client = new tmi.Client({
       channels: [channelName]
     });
@@ -85,7 +119,7 @@ function Twitch_Chat() {
     client.on('message', handleMessage);
 
     return () => {
-      client.off('message', handleMessage);
+      client.off('message',handleMessage);
       client.disconnect();
     };
   }, [channelName]);
@@ -107,6 +141,20 @@ function Twitch_Chat() {
     setUrl("https://www.twitch.tv/"+cambiochannelName.toLowerCase())
     localStorage.setItem('channelName', cambiochannelName.toLowerCase());
   };
+
+  useEffect(() => {
+    if(localStorage.getItem('channelName') !== null){
+      setChannelName(localStorage.getItem('channelName'));
+      setCambiochannelName(localStorage.getItem('channelName'));
+      setUrl("https://www.twitch.tv/"+localStorage.getItem('channelName'));
+    }
+    const timer = setInterval(() => {
+      getStreams("setinterval_inicial",localStorage.getItem('channelName'))
+    }, 5000);
+    return () => {
+      clearInterval(timer); // Limpia el temporizador si el componente se desmonta antes de que se cumpla el tiempo
+    };
+  }, []);
 
   return (
     <>
@@ -136,7 +184,7 @@ function Twitch_Chat() {
         />
         <button className="botones" onClick={changeChannel}>Cambiar Canal</button>
       </div>
-      <div className="channelname" onClick={() => window.open(url, '_blank')}>{mayusPrimeraLetra(channelName)} Chat</div>
+      <div className="channelname" onClick={() => window.open(url, '_blank')}>{mayusPrimeraLetra(channelName)} Chat({viewers})</div>
       <div className="chat">
         {messages.map((message, index) => (
           <p key={index} className="message">
