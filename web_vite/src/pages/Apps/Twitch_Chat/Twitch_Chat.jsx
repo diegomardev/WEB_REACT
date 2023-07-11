@@ -148,6 +148,7 @@ function Twitch_Chat() {
       setCambiochannelName(localStorage.getItem('channelName'));
       setUrl("https://www.twitch.tv/"+localStorage.getItem('channelName'));
     }
+    else{localStorage.setItem('channelName', channelName);}
     const timer = setInterval(() => {
       getStreams("setinterval_inicial",localStorage.getItem('channelName'))
     }, 5000);
