@@ -83,7 +83,7 @@ function Games() {
     </h1>
     <div>
       <div >
-      <button className="botones_juegos" onClick={app1}>Twitch Chat</button>
+      <button className="botones_juegos my-button twitch_text" onClick={app1}>Twitch Chat</button>
       </div>
     </div>
     </>

@@ -169,7 +169,7 @@ function Twitch_Chat() {
       </div>
       <h1 className="read-the-docs">Twitch Chat</h1>
       <div className='alinear'>
-        <label style={{ marginRight: '10px' }} htmlFor="urlInput">URL de Twitch </label>
+        <label style={{ marginRight: '5px' }} htmlFor="urlInput">URL de Twitch </label>
         <input
           className="input_twitch"
           id="urlInput"
@@ -181,7 +181,7 @@ function Twitch_Chat() {
         <button className="botones" onClick={changeURL}>Cambiar URL</button>
       </div>
       <div className='alinear'>
-        <label style={{ marginRight: '10px' }} htmlFor="channelInput">Canal de Twitch </label>
+        <label style={{ marginRight: '5px' }} htmlFor="channelInput">Canal de Twitch </label>
         <input
           className="input_twitch"
           id="channelInput"
