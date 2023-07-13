@@ -134,6 +134,7 @@ const ClickGame = () => {
       const newName = prompt('Enter a new name:');
       if (newName) {
         setPlayerName(newName);
+        localStorage.setItem('playerName', newName);
       }
       setShowDialog(false);
     }
