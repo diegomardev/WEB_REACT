@@ -5,13 +5,9 @@ import Navbar from '../../../components/Navbar/Navbar';
 import tmi from 'tmi.js';
 import TOKENS from '../../../../data/constants';
 
-const clinetId     = TOKENS.CLIENTID;
-const clinetSecret = TOKENS.CLIENTSECRET;
-const access_token = TOKENS.ACCESS_TOKEN;
-
-console.log("clientid: "+clinetId);
-console.log("secretid: "+clinetSecret);
-console.log("access_token: "+access_token);
+const clinetId     = TOKENS.TWITCH.CLIENTID;
+const clinetSecret = TOKENS.TWITCH.CLIENTSECRET;
+const access_token = TOKENS.TWITCH.ACCESS_TOKEN;
 
 function mayusPrimeraLetra(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);

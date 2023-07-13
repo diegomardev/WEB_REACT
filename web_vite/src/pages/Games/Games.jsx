@@ -72,6 +72,11 @@ function Games() {
     //vamos a la siguiente pagina creando una nueva /
     window.location.href = "games/snake";
   }
+
+  function game2() {
+    //vamos a la siguiente pagina creando una nueva /
+    window.location.href = "games/click_game";
+  }
   
   return (
     <>
@@ -84,7 +89,7 @@ function Games() {
     <div>
       <div >
       <button className="botones_juegos" onClick={game1}>🐍 Snake 🐍</button>
-      <button className="botones_juegos" onClick={game1}>🐍 Snake 🐍</button>
+      <button className="botones_juegos" onClick={game2}>🖱️ Click 🖱️</button>
       <button className="botones_juegos" onClick={game1}>🐍 Snake 🐍</button>
       <button className="botones_juegos" onClick={game1}>🐍 Snake 🐍</button>
       <button className="botones_juegos" onClick={game1}>🐍 Snake 🐍</button>

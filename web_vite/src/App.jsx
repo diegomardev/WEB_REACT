@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Home from './pages/Home/Home'
 import Games from './pages/Games/Games'
 import Snake from './pages/Games/Snake/Snake'
+import Click from './pages/Games/Click_Game/Click_Game'
 import Apps from './pages/Apps/Apps'
 import Twitch_Chat from './pages/Apps/Twitch_Chat/Twitch_Chat'
 import Contact from './pages/Contact/Contact'
@@ -21,6 +22,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/games" element={<Games />} />
         <Route path="/games/snake" element={<Snake />} />
+        <Route path="/games/click_game" element={<Click />} />
         <Route path="/apps" element={<Apps />} />
         <Route path="/apps/twitch_chat" element={<Twitch_Chat />} />
         <Route path="/contact" element={<Contact />} />
