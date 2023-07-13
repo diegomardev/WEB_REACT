@@ -3,9 +3,15 @@ import '../../../index.css';
 import './Twitch_Chat.css';
 import Navbar from '../../../components/Navbar/Navbar';
 import tmi from 'tmi.js';
+import TOKENS from '../../../../data/constants';
 
-const clinetId = "v5b1ducw1fveytsl3b7cck9yaf9exw";
-const clinetSecret = "5ivk0p6xskboge4ywxnlpe4teq75uy";
+const clinetId     = TOKENS.CLIENTID;
+const clinetSecret = TOKENS.CLIENTSECRET;
+const access_token = TOKENS.ACCESS_TOKEN;
+
+console.log("clientid: "+clinetId);
+console.log("secretid: "+clinetSecret);
+console.log("access_token: "+access_token);
 
 function mayusPrimeraLetra(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -42,7 +48,7 @@ function Twitch_Chat() {
   
     //DEJAR ESTA OPCION PARA PODER RECUPERAR EL ACCESS_TOKEN se mostrará en console de la pagina.
     //let authorization = "Bearer "+ getTwitchAuthorization(); 
-    let authorization = "Bearer hyheaae6hbevgmthnhwzjxryl2cv5d";
+    let authorization = "Bearer " + access_token;
 
     let headers = {
     "Authorization": authorization,
@@ -100,7 +106,8 @@ function Twitch_Chat() {
     setCount((prevCount) => (prevCount >= 9 ? 0 : prevCount));
     const date = new Date();
     const hour = date.getHours();
-    const min = date.getMinutes();
+    let min = date.getMinutes();
+    if(min < 10){min="0"+min}
     const sec = date.getSeconds();
     rotateMessages(message, (" "+tags['display-name']+": "), tags.color, (hour+":"+min+" "), tags.subscriber, tags.mod);
     if(tags.color === undefined || tags.color === null){
@@ -130,7 +137,9 @@ function Twitch_Chat() {
     }
   };
   const changeURL = () => {
-    const newChannelName = url.replace(/^https:\/\/www.twitch.tv\//, '');
+    let newChannelName = url.toLowerCase();
+    setUrl(newChannelName);
+    newChannelName = newChannelName.replace(/^https:\/\/www.twitch.tv\//, '');
     setChannelName(newChannelName);
     setCambiochannelName(newChannelName);
     localStorage.setItem('channelName', newChannelName);
@@ -163,29 +172,31 @@ function Twitch_Chat() {
         <Navbar />
       </div>
       <h1 className="read-the-docs">Twitch Chat</h1>
-      <div>
-        <label htmlFor="urlInput">URL de Twitch:</label>
+      <div className='alinear'>
+        <label style={{ marginRight: '10px' }} htmlFor="urlInput">URL de Twitch </label>
         <input
+          className="input_twitch"
           id="urlInput"
           type="text"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           onKeyDown={(e) => handleKeyPress(e, changeURL)}
         />
-        <button className="botones botones_twitch" onClick={changeURL}>Cambiar URL</button>
+        <button className="botones" onClick={changeURL}>Cambiar URL</button>
       </div>
-      <div>
-        <label htmlFor="channelInput">Canal de Twitch:</label>
+      <div className='alinear'>
+        <label style={{ marginRight: '10px' }} htmlFor="channelInput">Canal de Twitch </label>
         <input
+          className="input_twitch"
           id="channelInput"
           type="text"
           value={cambiochannelName}
           onChange={(e) => setCambiochannelName(e.target.value)}
           onKeyDown={(e) => handleKeyPress(e, changeChannel)}
         />
-        <button className="botones" onClick={changeChannel}>Cambiar Canal</button>
+        <button className="botones botones_twitch" onClick={changeChannel}>Cambiar Canal</button>
       </div>
-      <div className="channelname" onClick={() => window.open(url, '_blank')}>{mayusPrimeraLetra(channelName)} Chat({viewers})</div>
+      <div className="channelname alinear" onClick={() => window.open(url, '_blank')}>{mayusPrimeraLetra(channelName)} Chat ({viewers})</div>
       <div className="chat">
         {messages.map((message, index) => (
           <p key={index} className="message">

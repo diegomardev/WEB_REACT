@@ -1,5 +1,4 @@
 .channelname {
-  position: relative;
   font-size: 40px;
   cursor: pointer;
 }
@@ -18,4 +17,12 @@
 }
 .botones_twitch{
   margin-top: 5px;
+}
+.alinear{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.input_twitch{
+  height: 20px;
 }
