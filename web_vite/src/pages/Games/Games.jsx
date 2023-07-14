@@ -68,15 +68,9 @@ function Games() {
     setCount((count) => count + 1);
   }
   //ESTA FUNCION ME REDIRIGE A OTRA PAGINA
-  function game1() {
-    //vamos a la siguiente pagina creando una nueva /
-    window.location.href = "games/snake";
-  }
-
-  function game2() {
-    //vamos a la siguiente pagina creando una nueva /
-    window.location.href = "games/click_game";
-  }
+  function game1() {window.location.href = "games/snake";}
+  function game2() {window.location.href = "games/click_game";}
+  function game3() {window.location.href = "games/dino"};
   
   return (
     <>
@@ -90,7 +84,7 @@ function Games() {
       <div >
       <button className="botones_juegos" onClick={game1}>🐍 Snake 🐍</button>
       <button className="botones_juegos" onClick={game2}>🖱️ Click 🖱️</button>
-      <button className="botones_juegos" onClick={game1}>🐍 Snake 🐍</button>
+      <button className="botones_juegos" onClick={game3}>🦖 Dino 🦖</button>
       <button className="botones_juegos" onClick={game1}>🐍 Snake 🐍</button>
       <button className="botones_juegos" onClick={game1}>🐍 Snake 🐍</button>
       </div>
