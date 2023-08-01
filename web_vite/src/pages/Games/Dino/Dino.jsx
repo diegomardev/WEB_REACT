@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
 import '../../../index.css'
-import './Dino.css';
+//import './Dino.css';
 import Navbar from '../../../components/Navbar/Navbar'
 import ChromeDinoGame from 'react-chrome-dino';
 

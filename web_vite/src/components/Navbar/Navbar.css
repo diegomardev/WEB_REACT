@@ -1,6 +1,6 @@
 .navbar_cabecera{
   position: relative;
-  background: linear-gradient(45deg,#ffeb3b,#34bb5d,#326be7,#da1d88);
+  background: linear-gradient(45deg, #224aff, #34bb5d, #aace28,#da1d88, #da1d88);
   height: 60px;
   width: 100%;
   display: flex;
@@ -10,7 +10,7 @@
 }
 .navbar_menu{
   position: relative;
-  background: linear-gradient(45deg,#ffeb3b,#34bb5d,#326be7,#da1d88);
+  background: linear-gradient(45deg, #224aff, #34bb5d, #aace28,#da1d88, #da1d88);
   height: 60px;
   width: 100%;
   display: flex;
@@ -43,7 +43,7 @@
     position: absolute;
     top: 60px;
     left: 0;
-    background: linear-gradient(102deg,#ffeb3bfa,#34bb5dfa,#326be7fa,#da1d88fa);/* tiene una pequeña transparencia*/
+    background: linear-gradient(100deg,#224aff, #34bb5d, #8faf1a,#da1d88, #da1d88);/* tiene una pequeña transparencia*/
     /* background: linear-gradient(102deg,#d4ee42fa,#6334bbfa,#326be7fa,#1bc282fa); */
     display: flex;
     flex-direction: column;
