@@ -6,7 +6,7 @@ import confetti from 'canvas-confetti'
 import './Login.css'
 import Navbar from '../../components/Navbar/Navbar'
 import Atropos from 'atropos';
-import MyImage from "./MyImage";
+import MyCard from "./MyCard";
 
 // Initialize
 const myAtropos = Atropos({
@@ -30,12 +30,13 @@ function Login() {
       <h1 className="read-the-docs">
           Login
       </h1>
-      {/* <div className="name_login">{user.name}</div> */}
-      <div>
-        <MyImage/>
+      <div className='my-atropos' onClick={hreff => {
+        window.location.href = 'https://www.linkedin.com/in/diegomarbar/';
+      }}>
+        <MyCard/>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        
       </p>
     </>
   )

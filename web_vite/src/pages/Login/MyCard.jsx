@@ -3,6 +3,7 @@ import Atropos from 'atropos/react';
 import "atropos/atropos.css";
 import "./Login.css";
 import diegomar from '../../assets/users/diegomar.jpg';
+import atroposbg from './atropos-bg.svg';
 
 const MyImage = () => {
   const cardRef = useRef(null);
@@ -32,7 +33,7 @@ const MyImage = () => {
       >
       <img
         className="atropos-banner-spacer"
-        src="https://raw.githubusercontent.com/nolimits4web/atropos/master/playground/react/i/atropos-bg.svg"
+        src={atroposbg}
         alt=""
       />
       <img
@@ -45,28 +46,20 @@ const MyImage = () => {
       />
         <img
           ref={imageRef}
-          data-atropos-offset="2"
           src={diegomar}
           alt=""
           onLoad={handleImageLoad} // Call the handleImageLoad when the image is loaded
+          className='img-overlay'
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            top: '10%',
-            left: `calc(50% - ${renderedImageSize.width / 2}px)`, // Calculate left position
-            width: `100px`, // Set the image width
+            width: '20%',
             height: 'auto',
-            zIndex: '-1',
-            borderRadius: '50%',
+            top: '10%',
+            left: '40%',
           }}
         />
-      <div
-        data-atropos-offset="2"
-        className="text-center name_card"
-      >
-        Diego Martínez
-      </div>
+            <div className="text-overlay centered-text">
+              <h2>Diego Martínez</h2>
+            </div>
       </Atropos>
     </div>
   );
