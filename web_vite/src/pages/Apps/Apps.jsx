@@ -7,6 +7,7 @@ function Apps() {
   //ESTA FUNCION ME REDIRIGE A OTRA PAGINA
   function app1() {window.location.href = "apps/twitch_chat";}
   function app2() {window.location.href = "apps/threads_api";}
+  function app3() {window.location.href = "apps/vibration";}
   
   return (
     <>
@@ -20,6 +21,7 @@ function Apps() {
       <div >
       <button className="botones_juegos my-button twitch_text" onClick={app1}>Twitch Chat</button>
       {/* <button className="botones_juegos" onClick={app2}>Threads API</button> */}
+      <button className="botones_juegos my-button vibration_text" onClick={app3}>Vibration 📳</button>
       </div>
     </div>
     </>
