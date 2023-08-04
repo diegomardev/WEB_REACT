@@ -30,10 +30,10 @@ function Login() {
       <h1 className="read-the-docs">
           Login
       </h1>
-      <div className='my-atropos' onClick={hreff => {
-        window.location.href = 'https://www.linkedin.com/in/diegomarbar/';
-      }}>
-        <MyCard/>
+      <div className='my-atropos'>
+        <a href='https://www.linkedin.com/in/diegomarbar/' target='_blank' rel='noopener noreferrer'>
+          <MyCard />
+        </a>
       </div>
       <p className="read-the-docs">
         
