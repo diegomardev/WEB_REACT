@@ -130,7 +130,6 @@ html.dark button {
 html.dark input {
   background-color: #1a1a1a;
   color: #f9f9f9;
-  max-width: 205px;
 }
 
 html.dark .hover-text{

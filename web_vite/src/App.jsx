@@ -12,6 +12,7 @@ import Threads_API from './pages/Apps/Threads_API/Threads_API'
 import Vibration from './pages/Apps/Vibration/Vibration'
 import Sensor_Data from './pages/Apps/Sensor_Data/Sensor_Data'
 import Chronometer from './pages/Apps/Chronometer/Chronometer'
+import Timer from './pages/Apps/Timer/Timer'
 import Contact from './pages/Contact/Contact'
 import Blog from './pages/Blog/Blog'
 import About from './pages/About/About'
@@ -35,6 +36,7 @@ function App() {
         <Route path="/apps/vibration" element={<Vibration />} />
         <Route path="/apps/sensor_data" element={<Sensor_Data />} />
         <Route path="/apps/chronometer" element={<Chronometer />} />
+        <Route path="/apps/timer" element={<Timer />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/about" element={<About />} />

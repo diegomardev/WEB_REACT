@@ -8,51 +8,17 @@ function Vibration() {
   const handleVibrationButtonClick = () => {
     navigator.vibrate(vibrationTime);
   };
-
-
-
-  const [accelerationData, setAccelerationData] = useState({
-    x: 0,
-    y: 0,
-    z: 0
-  });
-
-  const [gyroscopeData, setGyroscopeData] = useState({
-    x: 0,
-    y: 0,
-    z: 0
-  });
-
-  useEffect(() => {
-    if ('LinearAccelerationSensor' in window) {
-      const accelerometer = new LinearAccelerationSensor();
-      accelerometer.addEventListener('reading', () => {
-        setAccelerationData({
-          x: accelerometer.x.toFixed(2),
-          y: accelerometer.y.toFixed(2),
-          z: accelerometer.z.toFixed(2)
-        });
-      });
-      accelerometer.start();
-    } else {
-      console.log('El acelerómetro no es compatible con este dispositivo o navegador.');
-    }
-
-    if ('Gyroscope' in window) {
-      const gyroscope = new Gyroscope();
-      gyroscope.addEventListener('reading', () => {
-        setGyroscopeData({
-          x: gyroscope.x.toFixed(2),
-          y: gyroscope.y.toFixed(2),
-          z: gyroscope.z.toFixed(2)
-        });
-      });
-      gyroscope.start();
-    } else {
-      console.log('El giroscopio no es compatible con este dispositivo o navegador.');
-    }
-  }, []);
-
+  function supermario() {
+    navigator.vibrate([125,75,125,275,200,275,125,75,125,275,200,600,200,600])
+  }
+  
+  function starwars() {
+    navigator.vibrate([500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500])
+  }
+  
+  function powerrangers() {
+    navigator.vibrate([150,150,150,150,75,75,150,150,150,150,450])
+  }
   return (
     <>
       <div>
@@ -65,6 +31,9 @@ function Vibration() {
       <button className="botones_juegos my-button vibration_text" onClick={() => {navigator.vibrate(1000);}}>Vibrate 1000ms</button>
       <button className="botones_juegos my-button vibration_text" onClick={() => {navigator.vibrate(2000);}}>Vibrate 2000ms</button>
       <button className="botones_juegos my-button vibration_text" onClick={() => {navigator.vibrate(5000);}}>Vibrate 5000ms</button>
+      <button className="botones_juegos my-button vibration_text" onClick={() => {supermario();}}>Super Mario Bros</button>
+      <button className="botones_juegos my-button vibration_text" onClick={() => {starwars();}}>Star Wars</button>
+      <button className="botones_juegos my-button vibration_text" onClick={() => {powerrangers();}}>Power Rangers</button>
       <button className="botones_juegos my-button vibration_text" onClick={handleVibrationButtonClick}>
         Vibrate {vibrationTime}ms
       </button>
@@ -77,18 +46,6 @@ function Vibration() {
         value={vibrationTime}
         onChange={(e) => setVibrationTime(Number(e.target.value))}
       />
-      <div>
-        <h1>Acelerómetro</h1>
-        <p>Valor X: {accelerationData.x}</p>
-        <p>Valor Y: {accelerationData.y}</p>
-        <p>Valor Z: {accelerationData.z}</p>
-
-        <h1>Giroscopio</h1>
-        <p>Velocidad X: {gyroscopeData.x}</p>
-        <p>Velocidad Y: {gyroscopeData.y}</p>
-        <p>Velocidad Z: {gyroscopeData.z}</p>
-      </div>
-
       <p className="read-the-docs">
         Click the button to vibrate the device.
       </p>

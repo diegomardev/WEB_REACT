@@ -10,6 +10,7 @@ function Apps() {
   function app3() {window.location.href = "apps/vibration";}
   function app4() {window.location.href = "apps/sensor_data";}
   function app5() {window.location.href = "apps/chronometer";}
+  function app6() {window.location.href = "apps/timer";}
   
   return (
     <>
@@ -23,7 +24,8 @@ function Apps() {
       <div >
       <button className="botones_juegos my-button twitch_text" onClick={app1}>Twitch Chat</button>
       {/* <button className="botones_juegos" onClick={app2}>Threads API</button> */}
-      <button className="botones_juegos my-button chronometer_text" onClick={app5}>Chronometer</button>
+      <button className="botones_juegos my-button chronometer_text" onClick={app5}>Chronometer ⏱️</button>
+      <button className="botones_juegos my-button timer_text" onClick={app6}>Timer ⏲️</button>
       <button className="botones_juegos my-button vibration_text" onClick={app3}>Vibration 📳</button>
       <button className="botones_juegos my-button sensor_text" onClick={app4}>Mobile Sensor</button>
       </div>
