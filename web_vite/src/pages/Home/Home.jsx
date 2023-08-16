@@ -84,9 +84,9 @@ function Home() {
       <img src={confetti_logo} className='logo_confetti' onClick={handleClick2} />
       <div className="card">
         <div >
-          <button className="botones" onClick={handleClick}>let: {x}</button>
-          <button className="botones" onClick={handleClick2}>🎉 {confetti_count}</button>
-          <button className="botones" onClick={handleClick3}>🎊 {count}</button>
+          <button className="botones button_normal" onClick={handleClick}>let: {x}</button>
+          <button className="botones button_normal" onClick={handleClick2}>🎉 {confetti_count}</button>
+          <button className="botones button_normal" onClick={handleClick3}>🎊 {count}</button>
         </div>
         
         <p>

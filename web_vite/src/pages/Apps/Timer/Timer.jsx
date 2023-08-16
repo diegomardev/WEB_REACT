@@ -119,9 +119,9 @@ function Timer() {
           />
         </div>
         <div className="countdown-timer__buttons">
-          <button onClick={startCountdown}>Start</button>
-          <button onClick={pauseCountdown}>Pause</button>
-          <button onClick={resetCountdown}>Reset</button>
+          <button className='button_normal' onClick={startCountdown}>Start</button>
+          <button className='button_normal' onClick={pauseCountdown}>Pause</button>
+          <button className='button_normal' onClick={resetCountdown}>Reset</button>
         </div>
       </div>      
       <p className="read-the-docs">

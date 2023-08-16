@@ -169,7 +169,7 @@ function Twitch_Chat() {
       </div>
       <h1 className="read-the-docs">Twitch Chat</h1>
       <div className='alinear'>
-        <label style={{ marginRight: '5px' }} htmlFor="urlInput">URL de Twitch </label>
+        {/* <label style={{ marginRight: '5px' }} htmlFor="urlInput">URL de Twitch </label> */}
         <input
           className="input_twitch"
           id="urlInput"
@@ -178,10 +178,10 @@ function Twitch_Chat() {
           onChange={(e) => setUrl(e.target.value)}
           onKeyDown={(e) => handleKeyPress(e, changeURL)}
         />
-        <button className="botones" onClick={changeURL}>Cambiar URL</button>
+        <button className="botones button_normal" onClick={changeURL}>Cambiar URL</button>
       </div>
       <div className='alinear'>
-        <label style={{ marginRight: '5px' }} htmlFor="channelInput">Canal de Twitch </label>
+        {/* <label style={{ marginRight: '5px' }} htmlFor="channelInput">Canal de Twitch </label> */}
         <input
           className="input_twitch"
           id="channelInput"
@@ -190,7 +190,7 @@ function Twitch_Chat() {
           onChange={(e) => setCambiochannelName(e.target.value)}
           onKeyDown={(e) => handleKeyPress(e, changeChannel)}
         />
-        <button className="botones botones_twitch" onClick={changeChannel}>Cambiar Canal</button>
+        <button className="botones botones_twitch button_normal" onClick={changeChannel}>Cambiar Canal</button>
       </div>
       <div className="channelname alinear" onClick={() => window.open(url, '_blank')}>{mayusPrimeraLetra(channelName)} Chat ({viewers})</div>
       <div className="chat">

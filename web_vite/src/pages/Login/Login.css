@@ -3,6 +3,12 @@
   top: 72px;
   right: 15px;
 }
+.boton-register {
+  position: absolute;
+  top: 72px;
+  right: 100px;
+}
+
 .input-group {
   position: relative;
   max-width: max-content;
@@ -30,7 +36,7 @@
   text-align: center;
 }
  
-.input:focus, input:valid {
+.input:focus, .input:valid {
   outline: none;
   border: 1.5px solid #1a73e8;
 }

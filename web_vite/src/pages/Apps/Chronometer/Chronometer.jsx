@@ -114,11 +114,11 @@ function Chronometer() {
           <span>{time.milliseconds.toString().padStart(2, '0')}</span>
         </div>
         <div className="chronometer__buttons">
-          <button onClick={startTimer}>Start</button>
-          <button onClick={pauseTimer}>Pause</button>
-          <button onClick={resetTimer}>Reset</button>
+          <button className='button_normal' onClick={startTimer}>Start</button>
+          <button className='button_normal' onClick={pauseTimer}>Pause</button>
+          <button className='button_normal' onClick={resetTimer}>Reset</button>
         </div>
-        <button onClick={lapTimer}>Lap</button>
+        <button className='button_normal' onClick={lapTimer}>Lap</button>
       </div>
       {laps.map((lap, index) => (
         <div key={index} className="lap-item">

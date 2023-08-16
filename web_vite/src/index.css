@@ -38,7 +38,7 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+.button_normal {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -49,11 +49,11 @@ button {
   cursor: pointer;
   transition: border-color 0.5s;
 }
-button:hover {
+.button_normal:hover {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
+.button_normal:focus,
+.button_normal:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
@@ -93,7 +93,7 @@ html.light {
   color: #213547;
 }
 
-html.light button {
+html.light .button_normal {
   background-color: #f9f9f9;
   color: #213547;
 }
@@ -124,8 +124,8 @@ html.dark {
   color: #f9f9f9;
 }
 
-html.dark button {
-  background-color: #1a1a1a;
+html.dark .button_normal {
+  /* background-color: #1a1a1a; */
   color: #f9f9f9;
 }
 
