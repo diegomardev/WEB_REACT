@@ -161,6 +161,12 @@ function Login() {
     leerDatos();
   }, []);
   */
+  const handleKeyPress = (e, callback) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      callback(e);
+    }
+  };
   //añadimos la imagen de perfil local
   const user = {
     name: 'Diego Martínez',
@@ -194,16 +200,17 @@ function Login() {
       {!isLoggedIn && !isRegister && (
         <form>
           <div className="input-group">
-            <input
-              required
-              type="text"
-              name="text"
-              autoComplete="off"
-              className="input"
-              value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
-            />
-            <label className="user-label">User or Email</label>
+          <input
+            required
+            type="text"
+            name="text"
+            autoComplete="off"
+            className="input"
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            onKeyDown={(e) => handleKeyPress(e, handleLogin)}
+          />
+          <label className="user-label">User or Email</label>
           </div>
           <div className="input-group">
             <input
@@ -214,6 +221,7 @@ function Login() {
               className="input"
               value={passwordInput}
               onChange={(e) => setPasswordInput(e.target.value)}
+              onKeyDown={(e) => handleKeyPress(e, handleLogin)}
             />
             <label className="user-label">Password</label>
           </div>
@@ -235,6 +243,7 @@ function Login() {
               className="input"
               value={nameInput}
               onChange={(e) => setNameInput(e.target.value)}
+              onKeyDown={(e) => handleKeyPress(e, handleRegister)}
             />
             <label className="user-label">Name</label>
           </div>
@@ -247,6 +256,7 @@ function Login() {
               className="input"
               value={lastNameInput}
               onChange={(e) => setLastNameInput(e.target.value)}
+              onKeyDown={(e) => handleKeyPress(e, handleRegister)}
             />
             <label className="user-label">Last Name</label>
           </div>
@@ -259,6 +269,7 @@ function Login() {
               className="input"
               value={emailInput}
               onChange={(e) => setEmailInput(e.target.value)}
+              onKeyDown={(e) => handleKeyPress(e, handleRegister)}
             />
             <label className="user-label">Email</label>
           </div>
@@ -271,6 +282,7 @@ function Login() {
               className="input"
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
+              onKeyDown={(e) => handleKeyPress(e, handleRegister)}
             />
             <label className="user-label">User</label>
           </div>
@@ -283,6 +295,7 @@ function Login() {
               className="input"
               value={passwordInput}
               onChange={(e) => setPasswordInput(e.target.value)}
+              onKeyDown={(e) => handleKeyPress(e, handleRegister)}
             />
             <label className="user-label">Password</label>
           </div>
@@ -295,6 +308,7 @@ function Login() {
               className="input"
               value={repeatPasswordInput}
               onChange={(e) => setRepearPasswordInput(e.target.value)}
+              onKeyDown={(e) => handleKeyPress(e, handleRegister)}
             />
             <label className="user-label">Repeat Password</label>
           </div>

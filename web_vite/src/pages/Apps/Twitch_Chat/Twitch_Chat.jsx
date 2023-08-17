@@ -214,8 +214,8 @@ function Twitch_Chat() {
           </p>
         ))}
       </div>
-      <p className="read-the-docs">
-        Mesagges
+      <p className="read-the-docs" style={{ marginTop: '0px' }}>
+      ⬆️Mesagges⬆️
       </p>
     </>
   );
