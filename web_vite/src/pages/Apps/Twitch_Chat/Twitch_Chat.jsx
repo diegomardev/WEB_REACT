@@ -178,7 +178,7 @@ function Twitch_Chat() {
           onChange={(e) => setUrl(e.target.value)}
           onKeyDown={(e) => handleKeyPress(e, changeURL)}
         />
-        <button className="botones button_normal" onClick={changeURL}>Cambiar URL</button>
+        <button className="botones botones_twitch button_normal" onClick={changeURL}>Cambiar URL</button>
       </div>
       <div className='alinear'>
         {/* <label style={{ marginRight: '5px' }} htmlFor="channelInput">Canal de Twitch </label> */}

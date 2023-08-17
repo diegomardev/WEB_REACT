@@ -5,18 +5,18 @@
 .message_channel_color{
   color: violet;
 }
-.chat {
-	padding: 2em;
-	padding-top: 2px;
-	max-width: 470px;
-	display: inline-table;
-	align-items: center;
+.chat { 
+  width: 400px;
+  margin: 5%;
+	/* display: inline-table; */
+	/* align-items: center; */
 }
 .message{
   text-align: left;
 }
 .botones_twitch{
   margin-top: 5px;
+  width: 105px;
 }
 .alinear{
   display: flex;
@@ -24,5 +24,16 @@
   justify-content: center;
 }
 .input_twitch{
-  height: 20px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(245, 245, 245, 0.473);
+  padding: 0.6em 0.5em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  max-width: 240px;
+}
+@media(max-width: 768px){
+  .chat { 
+    width: 90%;
+  }
 }
