@@ -1,10 +1,7 @@
 import { useState } from 'react'
-import reactLogo from '../../assets/react.svg'
-import viteLogo from '/vite.svg'
 import confetti from 'canvas-confetti'
 import './Games.css'
 import Navbar from '../../components/Navbar/Navbar'
-import confetti_logo from '../../assets/images/confetti.svg'
 
 let x = 0;
 let clickX = 0; // Coordenada x relativa al ancho de la ventana
@@ -71,6 +68,7 @@ function Games() {
   function game1() {window.location.href = "games/snake";}
   function game2() {window.location.href = "games/click_game";}
   function game3() {window.location.href = "games/dino"};
+  function game4() {window.location.href = "games/pixel_art";}
   
   return (
     <>
@@ -85,7 +83,7 @@ function Games() {
       <button className="botones_juegos" onClick={game1}>🐍 Snake 🐍</button>
       <button className="botones_juegos" onClick={game2}>🖱️ Click 🖱️</button>
       <button className="botones_juegos" onClick={game3}>🦖 Dino 🦖</button>
-      <button className="botones_juegos" onClick={game1}>🐍 Snake 🐍</button>
+      <button className="botones_juegos" onClick={game4}>🟦🟪 Pixel Art🟩🟥</button>
       <button className="botones_juegos" onClick={game1}>🐍 Snake 🐍</button>
       </div>
     </div>
