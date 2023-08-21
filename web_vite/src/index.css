@@ -56,7 +56,6 @@ h1 {
 .button_normal:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
 .botones_juegos{
   margin: 5px;
   font-size: 18pt;
