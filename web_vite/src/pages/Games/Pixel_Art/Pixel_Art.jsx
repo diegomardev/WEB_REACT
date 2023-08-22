@@ -21,27 +21,44 @@ const colorPalette = [
 ];
 
 const Pixel_Art = () => {
-  const [selectedColor, setSelectedColor] = useState('#00FFFF'); // Default color is black
+  const [selectedColor, setSelectedColor] = useState('#36C5F0'); // Default color is black
   const [pixels, setPixels] = useState([]);
   const [mundial_pixels, setMundial_pixels] = useState([]);
+  const [playerName, setPlayerName] = useState('');
+  const [hoveredPixel, setHoveredPixel] = useState({ row: -1, col: -1 });
 
+
+  useEffect(() => {
+    if(localStorage.getItem('playerName') !== null){
+      setPlayerName(localStorage.getItem('playerName'));
+    }
+  }, []);
   // Create an empty 16x16 pixel grid
-  const initializePixels = () => {
-    const initialPixels = new Array(16).fill(null).map(() => new Array(16).fill('#000000'));
+  async function initializePixels() {
+    const initialPixels = new Array(16).fill(null).map(() => new Array(16).fill(['#000000','Diego']));
     setPixels(initialPixels);
+    /*
+    const tableName = 'Pixel_Art';
+    const { data, error } = await supabase
+    .from(tableName)
+    .update([{pixel_colors: initialPixels }])
+    .eq('id', 1)
+    .select()
+    if (error) {throw error;}
+    */
   };
 
   // Handle pixel click and update the color
   async function handlePixelClick(row, col) {
     const updatedPixels = [...pixels];
-    updatedPixels[row][col] = selectedColor;
+    updatedPixels[row][col] = [selectedColor,playerName];
     setPixels(updatedPixels);
     //console.log([pixels]);
     
     const tableName = 'Pixel_Art';
     const { data, error } = await supabase
     .from(tableName)
-    .update([{pixel_colors: pixels }])
+    .update([{pixel_colors: updatedPixels }])
     .eq('id', 1)
     .select()
     if (error) {throw error;}
@@ -91,24 +108,49 @@ const Pixel_Art = () => {
     leerDatos();
   }, []);
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      localStorage.setItem('playerName', playerName);
+    }
+  };
   return (
     <div>
       <div><Navbar /></div>
       <h1 className="read-the-docs">Pixel Art</h1>
-      <div className="pixel-grid">
-        {pixels.map((row, rowIndex) => (
-          <div key={rowIndex} className="pixel-row">
-            {row.map((color, colIndex) => (
-              <div
-                key={colIndex}
-                className="pixel"
-                style={{ backgroundColor: color }}
-                onClick={() => handlePixelClick(rowIndex, colIndex)}
-              />
+      <div className="input-group">
+          <input
+              required
+              type="text"
+              name="text"
+              autoComplete="off"
+              className="input"
+              value={playerName}
+              onChange={(e) => setPlayerName(e.target.value)}
+              onKeyDown={(e) => handleKeyPress(e)}
+            />
+            <label className="user-label">Name - enter to set</label>
+          </div>
+          <div className="pixel-grid">
+            {pixels.map((row, rowIndex) => (
+              <div key={rowIndex} className="pixel-row">
+                {row.map((pixelData, colIndex) => (
+                  <div
+                    key={colIndex}
+                    className="pixel"
+                    style={{ backgroundColor: pixelData[0] }} // Acceso al color
+                    onClick={() => handlePixelClick(rowIndex, colIndex)}
+                    onMouseEnter={() => setHoveredPixel({ row: rowIndex, col: colIndex })}
+                    onMouseLeave={() => setHoveredPixel({ row: -1, col: -1 })}
+                  >
+                    {hoveredPixel.row === rowIndex && hoveredPixel.col === colIndex && (
+                      <span className="hovered-player-name">{pixelData[1]}</span>
+                    )}
+                  </div>
+                ))}
+              </div>
             ))}
           </div>
-        ))}
-      </div>
       <div className="color-palette">
         {colorPalette.map((color) => (
           <div

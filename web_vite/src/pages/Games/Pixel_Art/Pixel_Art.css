@@ -38,6 +38,7 @@
 }
 
 .pixel {
+  position: relative;
   display: flex;
   width: 20px;
   height: 20px;
@@ -45,6 +46,20 @@
   cursor: pointer;
   background-color: transparent;
   gap: 0px;
+}
+.hovered-player-name {
+  position: absolute;
+  top: -25px;
+  left: -10px;
+  background-color: #333;
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.5;
+  transition:0,5s opacity 1;
 }
 html.light .pixel{
   border: 1px solid #333;
