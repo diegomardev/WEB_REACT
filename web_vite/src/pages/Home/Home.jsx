@@ -98,9 +98,10 @@ function Home() {
         </div>
       </div>
       <p className="read-the-docs"style={{ display: 'flex', justifyContent: 'center'}}>
-      <IconGhost3/>
-        Web creada por Diego Martínez con mucho
-      <IconHeartCode/>
+        <IconGhost3/>&nbsp;
+        Hecho con &nbsp; <IconHeartCode fill='red'/> &nbsp; por &nbsp;
+        <a href="https://www.linkedin.com/in/diegomarbar/" target="_blank">diegomardev</a> &nbsp;
+        <IconGhost3/>
       </p>
     </>
   )
