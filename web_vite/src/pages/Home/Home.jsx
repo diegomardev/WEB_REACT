@@ -68,7 +68,7 @@ function Home() {
     setCount((count) => count + 1);
   }
   return (
-    <>
+    <div className="page-container">
       <div>
         <Navbar/>
       </div>
@@ -97,13 +97,13 @@ function Home() {
           <button className="botones button_normal" onClick={handleClick3}>🎊 {count}</button>
         </div>
       </div>
-      <p className="read-the-docs"style={{ display: 'flex', justifyContent: 'center'}}>
+      <footer className="read-the-docs"style={{ display: 'flex', justifyContent: 'center'}}>
         <IconGhost3/>&nbsp;
         Hecho con &nbsp; <IconHeartCode fill='red'/> &nbsp; por &nbsp;
         <a href="https://www.linkedin.com/in/diegomarbar/" target="_blank">diegomardev</a> &nbsp;
         <IconGhost3/>
-      </p>
-    </>
+      </footer>
+    </div>
   )
 }
 

@@ -66,8 +66,16 @@
   cursor: pointer;
 }
 
+footer {
+  margin-top: auto;
+  margin-bottom: 10px;
+}
 
-
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 60px);
+}
 
 .heartbeat {
 	-webkit-animation: heartbeat 1.5s ease-in-out infinite both;
