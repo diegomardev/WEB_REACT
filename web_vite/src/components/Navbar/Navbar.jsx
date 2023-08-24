@@ -35,7 +35,7 @@ const Navbar = () => {
   return (
     <div className='navbar_cabecera'>
       {/* <img src={demonlogo} className='navbar_logo' onClick={gohome} /> */}
-      <IconHome className='navbar_logo' onClick={gohome} size={60}/>
+      <IconHome className='navbar_logo' onClick={gohome} size={50}/>
       <div className={`navbar_toggle ${isOpen && "open"}`} onClick={() => setIsOpen(!isOpen)}>
         <span></span>
         <span></span>

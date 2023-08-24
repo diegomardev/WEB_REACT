@@ -14,7 +14,12 @@
   height: 30px;
   margin: 0 5px;
   border: 2px solid #333;
+  border-radius: 4px;
   cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.color-option:hover{
+  transform: scale(1.15);
 }
 
 .color-option.selected {
