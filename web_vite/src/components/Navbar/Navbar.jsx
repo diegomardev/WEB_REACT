@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import demonlogo from '../../assets/images/demon.svg';
+import {IconHome} from '@tabler/icons-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +34,8 @@ const Navbar = () => {
 
   return (
     <div className='navbar_cabecera'>
-      <img src={demonlogo} className='navbar_logo' onClick={gohome} />
+      {/* <img src={demonlogo} className='navbar_logo' onClick={gohome} /> */}
+      <IconHome className='navbar_logo' onClick={gohome} size={60}/>
       <div className={`navbar_toggle ${isOpen && "open"}`} onClick={() => setIsOpen(!isOpen)}>
         <span></span>
         <span></span>

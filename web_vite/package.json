@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.26.0",
+    "@tabler/icons": "^2.32.0",
+    "@tabler/icons-react": "^2.32.0",
     "atropos": "^2.0.2",
     "react": "^18.2.0",
     "react-chrome-dino": "^0.1.3",

@@ -4,6 +4,7 @@ import confetti from 'canvas-confetti';
 import Navbar from '../../../components/Navbar/Navbar';
 import TOKENS from '../../../../data/constants';
 import './Pixel_Art.css';
+import { IconHeart, IconHeartFilled, IconBrush, IconHeartCode } from '@tabler/icons-react';
 
 const supabaseUrl = TOKENS.SUPABASE.URL;
 const supabaseKey = TOKENS.SUPABASE.KEY;
@@ -26,7 +27,7 @@ const Pixel_Art = () => {
   const [mundial_pixels, setMundial_pixels] = useState([]);
   const [playerName, setPlayerName] = useState('');
   const [hoveredPixel, setHoveredPixel] = useState({ row: -1, col: -1 });
-
+  const [active, setActive] = useState(false)
 
   useEffect(() => {
     if(localStorage.getItem('playerName') !== null){
@@ -117,7 +118,19 @@ const Pixel_Art = () => {
   return (
     <div>
       <div><Navbar /></div>
-      <h1 className="read-the-docs">Pixel Art</h1>
+      <h1 className="read-the-docs">
+      <a onClick={() => setActive(!active)}>
+        {active ? <IconHeartCode size={48} color='white' /> : <IconHeartFilled size={48} color='red'/>}
+      </a>
+        Pixel Art&nbsp;
+        <IconBrush 
+          size={36}
+          color="red"
+          stroke={3}
+          strokeLinejoin="miter"
+        />
+        <IconHeartFilled size={48} color='red' fill='red' />
+      </h1>
       <div className="input-group">
           <input
               required
@@ -129,7 +142,7 @@ const Pixel_Art = () => {
               onChange={(e) => setPlayerName(e.target.value)}
               onKeyDown={(e) => handleKeyPress(e)}
             />
-            <label className="user-label">Name - enter to set</label>
+            <label className="user-label">Name - Enter to set</label>
           </div>
           <div className="pixel-grid">
             {pixels.map((row, rowIndex) => (

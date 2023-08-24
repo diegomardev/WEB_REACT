@@ -168,7 +168,7 @@
     filter: drop-shadow(0 0 1em #646cffaa);
   }
   @media(max-width: 768px){
-    h1{
+    .snake-h1{
       font-size: 3.2em;
       line-height: 0.1em;
     }

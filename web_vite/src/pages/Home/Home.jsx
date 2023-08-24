@@ -5,6 +5,7 @@ import confetti from 'canvas-confetti'
 import './Home.css'
 import Navbar from '../../components/Navbar/Navbar'
 import confetti_logo from '../../assets/images/confetti.svg'
+import { IconHeart, IconHeartFilled, IconBrush, IconHeartCode, IconGhost3, IconHome, IconStar } from '@tabler/icons-react';
 
 let x = 0;
 let clickX = 0; // Coordenada x relativa al ancho de la ventana
@@ -39,8 +40,6 @@ function confetti_click(){
       }
     });
 }
-// Agregar controlador de eventos de clic al documento
-
 // El evento se dispara cuando se mueve el ratón
 document.addEventListener('mousemove', function(event) {
   // Obtener coordenadas del evento de clic
@@ -52,6 +51,7 @@ function Home() {
   //const [variable, setVariable] = useState(valorInicial);
   const [count, setCount] = useState(0)//el 0 de usestate es el valor inicial
   const [confetti_count, setConfetti] = useState(0)
+  const [active, setActive] = useState(false)
   //creamos otra variable con useState
 
   const handleClick = () => {
@@ -69,9 +69,17 @@ function Home() {
   }
   return (
     <>
-    <div>
-      <Navbar/>
-    </div>
+      <div>
+        <Navbar/>
+      </div>
+      <h1 className="read-the-docs" style={{ display: 'flex', justifyContent: 'center'}}>
+        &nbsp;
+        Home 
+        &nbsp;
+        <a onClick={() => setActive(!active)} style={{ cursor: "pointer", marginTop: "-4px" }}>
+          {active ? <IconHeart className="heartbeat" size={60} color='red' fill='red'/> : <IconStar className='shake-bottom' size={60} color='#888'/>}
+        </a>
+      </h1>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -88,19 +96,11 @@ function Home() {
           <button className="botones button_normal" onClick={handleClick2}>🎉 {confetti_count}</button>
           <button className="botones button_normal" onClick={handleClick3}>🎊 {count}</button>
         </div>
-        
-        <p>
-          Variable normal(no se actualiza automaticamente): {x}
-        </p>
-        <p>
-          Variable useState confetti: {confetti_count}
-        </p>
-        <p>
-          Variable useState count: {count}
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+      <p className="read-the-docs"style={{ display: 'flex', justifyContent: 'center'}}>
+      <IconGhost3/>
+        Web creada por Diego Martínez con mucho
+      <IconHeartCode/>
       </p>
     </>
   )
