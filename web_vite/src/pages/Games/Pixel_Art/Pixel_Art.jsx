@@ -118,18 +118,25 @@ const Pixel_Art = () => {
   return (
     <div>
       <div><Navbar /></div>
-      <h1 className="read-the-docs">
-      <a onClick={() => setActive(!active)}>
-        {active ? <IconHeartCode size={48} color='white' /> : <IconHeartFilled size={48} color='red'/>}
-      </a>
-        Pixel Art&nbsp;
+      <h1 className="read-the-docs" style={{ display: 'flex', justifyContent: 'center'}}>
+        <span style={{ color: colorPalette[2] }}>P</span>
+        <span style={{ color: colorPalette[3] }}>i</span>
+        <span style={{ color: colorPalette[4] }}>x</span>
+        <span style={{ color: colorPalette[5] }}>e</span>
+        <span style={{ color: colorPalette[6] }}>l</span>
+        &nbsp;
+        <span style={{ color: colorPalette[7] }}>A</span>
+        <span style={{ color: colorPalette[2] }}>r</span>
+        <span style={{ color: colorPalette[4] }}>t</span>
+        &nbsp;
         <IconBrush 
-          size={36}
-          color="red"
-          stroke={3}
+          style={{ marginTop: '0px' }}
+          size={51}
+          color={colorPalette[6]}
+          fill='none'
+          stroke={2}
           strokeLinejoin="miter"
         />
-        <IconHeartFilled size={48} color='red' fill='red' />
       </h1>
       <div className="input-group">
           <input
