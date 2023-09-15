@@ -94,7 +94,7 @@ function Home() {
       </div>
       {/* <h1 className="click_text" onClick={handleClick2}>🎉</h1> */}
       <a onClick={handleClick2}>
-        <img src={confetti_logo} className='logo_confetti' onClick={handleClick2} />
+        <img src={confetti_logo} className='logo_confetti'/>
       </a>
       <div className="card">
         <div >
