@@ -80,16 +80,22 @@ function Home() {
           {active ? <IconHeart className="heartbeat" size={60} color='red' fill='red'/> : <IconStar className='shake-bottom' size={60} color='#888'/>}
         </a>
       </h1>
+      <p>
+        Hola 👋, soy Diego Martínez, <br />
+        Bienvenidos a mi página web.
+      </p>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
+        <a onClick={handleClick2}>
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
-        <a href="https://react.dev" target="_blank">
+        <a onClick={handleClick2}>
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
       {/* <h1 className="click_text" onClick={handleClick2}>🎉</h1> */}
-      <img src={confetti_logo} className='logo_confetti' onClick={handleClick2} />
+      <a onClick={handleClick2}>
+        <img src={confetti_logo} className='logo_confetti' onClick={handleClick2} />
+      </a>
       <div className="card">
         <div >
           <button className="botones button_normal" onClick={handleClick}>let: {x}</button>

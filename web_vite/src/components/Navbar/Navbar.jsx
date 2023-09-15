@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import demonlogo from '../../assets/images/demon.svg';
+import rocket from '../../assets/images/rocket.svg';
+
 import {IconHome} from '@tabler/icons-react';
 
 const Navbar = () => {
@@ -35,7 +37,8 @@ const Navbar = () => {
   return (
     <div className='navbar_cabecera'>
       {/* <img src={demonlogo} className='navbar_logo' onClick={gohome} /> */}
-      <IconHome className='navbar_logo' onClick={gohome} size={50}/>
+      {/* <IconHome className='navbar_logo' onClick={gohome} size={50}/> */}
+      <img src={rocket} className='navbar_logo' onClick={gohome} />
       <div className={`navbar_toggle ${isOpen && "open"}`} onClick={() => setIsOpen(!isOpen)}>
         <span></span>
         <span></span>
