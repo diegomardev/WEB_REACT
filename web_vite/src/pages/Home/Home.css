@@ -70,8 +70,8 @@
   cursor: pointer;
 }
 .home_big_button {
-  margin: 5px;
-  font-size: 18pt;
+  margin: 10px;
+  font-size: 20pt;
   font-weight: bold;
   border-radius: 50px;
   border: 1px solid rgba(255, 255, 255, 0.349);
@@ -85,9 +85,14 @@
   height: 170px;
   margin-bottom: 40px;
 }
-
 .home_big_button:hover {
-  filter: drop-shadow(0 0 1em #646cffaa);
+  filter: drop-shadow(0 0 0.5em #646cffaa);
+  scale:1.01;
+}
+html.light .home_big_button {
+  background-color: #f9f9f9;
+  color: #213547;
+  border: 1px solid rgba(27, 25, 25, 0.349);
 }
 footer {
   margin-top: auto;
@@ -266,7 +271,10 @@ footer {
 	overflow: hidden;
 	border-right: 2px solid white;
 }
-
+html.light .olivetti {
+  color: #213547;
+  border-right: 2px solid rgba(27, 25, 25, 0.349);
+}
 @keyframes olivetti {
 	from {
 		width: 0;
