@@ -56,7 +56,9 @@
 .read-the-docs {
   color: #888;
 }
-
+.footer_home{
+  margin-top: 80px;
+}
 .botones{
   margin-left: 5px;
   margin-right: 5px;
@@ -67,7 +69,26 @@
 .click_text{
   cursor: pointer;
 }
+.home_big_button {
+  margin: 5px;
+  font-size: 18pt;
+  font-weight: bold;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.349);
+  padding: 0.4em 1.2em;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.5s;
+  min-width: 140px;
+  width: 260px;
+  height: 170px;
+  margin-bottom: 40px;
+}
 
+.home_big_button:hover {
+  filter: drop-shadow(0 0 1em #646cffaa);
+}
 footer {
   margin-top: auto;
   margin-bottom: 10px;

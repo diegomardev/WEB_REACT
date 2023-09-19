@@ -72,33 +72,20 @@ function Home() {
     confetti_click();
     setConfetti((confetti_count) => confetti_count + 1);
   }
+  function handleClickUrl(url) {
+    //confetti();
+    confetti_click();
+    setConfetti((confetti_count) => confetti_count + 1);
+    setTimeout(() => {
+      if (url) {
+        window.location.href = url;
+      }
+    }, 500); // 2000 milisegundos = 2 segundos
+  }
   function handleClick3() {
     fireworks();
     setCount((count) => count + 1);
   }
-
-  const list = [
-    {
-      title: "Orange",
-      img: "./images/orange.jpeg",
-      price: "$5.50",
-    },
-    {
-      title: "Tangerine",
-      img: "/images/fruit-2.jpeg",
-      price: "$3.00",
-    },
-    {
-      title: "Raspberry",
-      img: "/images/fruit-3.jpeg",
-      price: "$10.00",
-    },
-    {
-      title: "Lemon",
-      img: "/images/fruit-4.jpeg",
-      price: "$5.30",
-    },
-  ];
   return (
     <div className="page-container">
       <div>
@@ -163,7 +150,21 @@ function Home() {
             You can see all the menu <br />
             and play the games and register.
           </p>
-          <footer className="read-the-docs"style={{ display: 'flex', justifyContent: 'center'}}>
+          <div style={{ marginTop: "200px" }}>
+          <button className='home_big_button' onClick={() => handleClickUrl('games')}>
+            GAMES
+          </button>
+          <button className='home_big_button' onClick={() => handleClickUrl('apps')}>
+            APPS
+          </button>
+          <button className='home_big_button' onClick={() => handleClickUrl('contact')}>
+            CONTACT
+          </button>            
+          <button className='home_big_button' onClick={() => handleClickUrl('login')}>
+            LOGIN
+          </button>
+          </div>
+          <footer className="read-the-docs footer_home"style={{ display: 'flex', justifyContent: 'center'}}>
             <IconGhost3/>&nbsp;
             Make with &nbsp; <IconHeartCode fill='red'/> &nbsp; by &nbsp;
             <a href="https://www.linkedin.com/in/diegomarbar/" target="_blank">diegomardev</a> &nbsp;
