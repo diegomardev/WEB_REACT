@@ -151,6 +151,11 @@
   .botones_juegos_start:hover {
     filter: drop-shadow(0 0 1em #646cffaa);
   }
+  html.light .botones_juegos_start {
+    background-color: #f9f9f9;
+    color: #213547;
+    border: 1px solid rgba(27, 25, 25, 0.349);
+  }
   .botones_juegos_direcion{
     margin: 5px;
     font-size: 18pt;
@@ -166,6 +171,11 @@
   }
   .botones_juegos_direcion:hover {
     filter: drop-shadow(0 0 1em #646cffaa);
+  }
+  html.light .botones_juegos_direcion {
+    background-color: #f9f9f9;
+    color: #213547;
+    border: 1px solid rgba(27, 25, 25, 0.349);
   }
   @media(max-width: 768px){
     .snake-h1{
