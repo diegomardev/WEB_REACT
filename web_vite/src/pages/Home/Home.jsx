@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, React } from 'react'
 import reactLogo from '../../assets/react.svg'
 import viteLogo from '/vite.svg'
 import confetti from 'canvas-confetti'
@@ -6,6 +6,15 @@ import './Home.css'
 import Navbar from '../../components/Navbar/Navbar'
 import confetti_logo from '../../assets/images/confetti.svg'
 import { IconHeart, IconHeartFilled, IconBrush, IconHeartCode, IconGhost3, IconHome, IconStar } from '@tabler/icons-react';
+import { isMobile } from "react-device-detect";
+
+//import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+
 
 let x = 0;
 let clickX = 0; // Coordenada x relativa al ancho de la ventana
@@ -67,50 +76,103 @@ function Home() {
     fireworks();
     setCount((count) => count + 1);
   }
+
+  const list = [
+    {
+      title: "Orange",
+      img: "./images/orange.jpeg",
+      price: "$5.50",
+    },
+    {
+      title: "Tangerine",
+      img: "/images/fruit-2.jpeg",
+      price: "$3.00",
+    },
+    {
+      title: "Raspberry",
+      img: "/images/fruit-3.jpeg",
+      price: "$10.00",
+    },
+    {
+      title: "Lemon",
+      img: "/images/fruit-4.jpeg",
+      price: "$5.30",
+    },
+  ];
   return (
     <div className="page-container">
       <div>
         <Navbar/>
       </div>
-      <h1 className="read-the-docs" style={{ display: 'flex', justifyContent: 'center'}}>
-        &nbsp;
-        Home 
-        &nbsp;
-        <a onClick={() => setActive(!active)} style={{ cursor: "pointer", marginTop: "-4px" }}>
-          {active ? <IconHeart className="heartbeat" size={60} color='red' fill='red'/> : <IconStar className='shake-bottom' size={60} color='#888'/>}
-        </a>
-      </h1>
-      <p>
-        Hola 👋, soy Diego Martínez, <br />
-        Bienvenidos a mi página web.
-      </p>
-      <div>
-        <a onClick={handleClick2}>
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a onClick={handleClick2}>
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      {/* <h1 className="click_text" onClick={handleClick2}>🎉</h1> */}
-      <a onClick={handleClick2}>
-        <img src={confetti_logo} className='logo_confetti'/>
-      </a>
-      <div className="card">
-        <div >
-          <button className="botones button_normal" onClick={handleClick}>let: {x}</button>
-          <button className="botones button_normal" onClick={handleClick2}>🎉 {confetti_count}</button>
-          <button className="botones button_normal" onClick={handleClick3}>🎊 {count}</button>
+      {isMobile ? (
+        <div>
+          <h1 className="read-the-docs" style={{ display: 'flex', justifyContent: 'center'}}>
+            &nbsp;
+            Home 
+            &nbsp;
+            <a onClick={() => setActive(!active)} style={{ cursor: "pointer", marginTop: "-4px" }}>
+              {active ? <IconHeart className="heartbeat" size={60} color='red' fill='red'/> : <IconStar className='shake-bottom' size={60} color='#888'/>}
+            </a>
+          </h1>
+          <p>
+            Hello 👋, I'am Diego, <br />
+            Welcome to my website.
+          </p>
+          <div>
+            <a onClick={handleClick2}>
+              <img src={viteLogo} className="logo" alt="Vite logo" />
+            </a>
+            <a onClick={handleClick2}>
+              <img src={reactLogo} className="logo react" alt="React logo" />
+            </a>
+          </div>
+          <div>
+            <a onClick={handleClick2}>
+              <img src={confetti_logo} className='logo_confetti'/>
+            </a>
+          </div>
+          
+          <div className="card">
+            <div >
+              <button className="botones button_normal" onClick={handleClick}>let: {x}</button>
+              <button className="botones button_normal" onClick={handleClick2}>🎉 {confetti_count}</button>
+              <button className="botones button_normal" onClick={handleClick3}>🎊 {count}</button>
+            </div>
+          </div>
+          <footer className="read-the-docs"style={{ display: 'flex', justifyContent: 'center'}}>
+            <IconGhost3/>&nbsp;
+            Make with &nbsp; <IconHeartCode fill='red'/> &nbsp; by &nbsp;
+            <a href="https://www.linkedin.com/in/diegomarbar/" target="_blank">diegomardev</a> &nbsp;
+            <IconGhost3/>
+          </footer>
         </div>
-      </div>
-      <footer className="read-the-docs"style={{ display: 'flex', justifyContent: 'center'}}>
-        <IconGhost3/>&nbsp;
-        Hecho con &nbsp; <IconHeartCode fill='red'/> &nbsp; por &nbsp;
-        <a href="https://www.linkedin.com/in/diegomarbar/" target="_blank">diegomardev</a> &nbsp;
-        <IconGhost3/>
-      </footer>
+      ) : (
+        <div>
+          <h1 className="read-the-docs" style={{ display: 'flex', justifyContent: 'center'}}>
+            &nbsp;
+            Home 
+            &nbsp;
+            <a onClick={() => setActive(!active)} style={{ cursor: "pointer", marginTop: "-4px" }}>
+              {active ? <IconHeart className="heartbeat" size={60} color='red' fill='red'/> : <IconStar className='shake-bottom' size={60} color='#888'/>}
+            </a>
+          </h1>
+          <p className='presentation_impar olivetti'>
+            Hello 👋, I'am Diego,
+          </p>
+          <p className='presentation_par'>
+            You can see all the menu <br />
+            and play the games and register.
+          </p>
+          <footer className="read-the-docs"style={{ display: 'flex', justifyContent: 'center'}}>
+            <IconGhost3/>&nbsp;
+            Make with &nbsp; <IconHeartCode fill='red'/> &nbsp; by &nbsp;
+            <a href="https://www.linkedin.com/in/diegomarbar/" target="_blank">diegomardev</a> &nbsp;
+            <IconGhost3/>
+          </footer>
+        </div>
+        )}
     </div>
-  )
+  );
 }
 
 export default Home

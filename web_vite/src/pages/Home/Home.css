@@ -78,7 +78,16 @@ footer {
   flex-direction: column;
   min-height: calc(100vh - 60px);
 }
-
+.presentation_impar {
+	font-size: 45px;
+	text-align: left;
+	margin-left: 90px;
+}
+.presentation_par {
+	font-size: 45px;
+	text-align: right;
+	margin-right: 90px;
+}
 .heartbeat {
 	-webkit-animation: heartbeat 1.5s ease-in-out infinite both;
 	        animation: heartbeat 1.5s ease-in-out infinite both;
@@ -224,4 +233,27 @@ footer {
     -webkit-transform: rotate(2deg);
             transform: rotate(2deg);
   }
+}
+
+
+.olivetti {
+	font-family: monospace;
+	color: white;
+	width: 21ch;
+	animation: olivetti 5s steps(20), pampalluga 0.5s step-end infinite alternate;
+	white-space: nowrap;
+	overflow: hidden;
+	border-right: 2px solid white;
+}
+
+@keyframes olivetti {
+	from {
+		width: 0;
+	}
+}
+
+@keyframes pampalluga {
+	50% {
+		border-color: transparent;
+	}
 }
