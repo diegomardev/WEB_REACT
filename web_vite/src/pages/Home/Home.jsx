@@ -152,16 +152,16 @@ function Home() {
           </p>
           <div style={{ marginTop: "200px" }}>
           <button className='home_big_button' onClick={() => handleClickUrl('games')}>
-            GAMES
+          🎮 GAMES 🎮
           </button>
           <button className='home_big_button' onClick={() => handleClickUrl('apps')}>
-            APPS
+          🎊 APPS 🎊
           </button>
           <button className='home_big_button' onClick={() => handleClickUrl('contact')}>
-            CONTACT
+          🎟️ CONTACT 🎟️
           </button>            
           <button className='home_big_button' onClick={() => handleClickUrl('login')}>
-            LOGIN
+          💻 LOGIN 💻
           </button>
           </div>
           <footer className="read-the-docs footer_home"style={{ display: 'flex', justifyContent: 'center'}}>
