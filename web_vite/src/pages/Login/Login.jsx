@@ -76,6 +76,7 @@ function Login() {
   const handletoLogin = () => {
     if(isLoggedIn){setIsLoggedIn(false)}
     setIsRegister(false);
+    localStorage.setItem('user_logged', 0);
   };
   //Función para validar el usuario y la contraseña
   async function handleLogin(e) {
@@ -98,6 +99,7 @@ function Login() {
     
         if (data) {
           setIsLoggedIn(true);
+          localStorage.setItem('user_logged', userInput);
           confetti();
           notify_ok('Logged in');
         } else {
@@ -322,11 +324,11 @@ function Login() {
           </div>
         </form>
       )}
-        <ToastContainer transition={Flip}/>
+      <ToastContainer transition={Flip}/>
       
-      
-      <p className="read-the-docs">login: {isLoggedIn.toString()}</p>
-      <p className='read-the-docs'>register: {isRegister.toString()}</p>
+      <p className="read-the-docs">login: {localStorage.getItem('user_logged')}</p>
+{/*   <p className="read-the-docs">login: {isLoggedIn.toString()}</p>
+      <p className='read-the-docs'>register: {isRegister.toString()}</p> */}
     </>
   );
 }
