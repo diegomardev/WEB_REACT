@@ -170,7 +170,8 @@ const Tetris = () => {
 
   // Renderizar el tablero de juego
   const renderBoard = useMemo(() => {
-    console.log("renderBoard")
+    console.log("renderBoard");
+    console.log(board);
     return board.map((row, rowIndex) => (
       <div className="row" key={rowIndex}>
         {row.map((cell, colIndex) => (
