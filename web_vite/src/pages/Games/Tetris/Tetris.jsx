@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { createClient } from '@supabase/supabase-js';
 import './Tetris.css';
-import Navbar from '../../../components/Navbar/Navbar'
-import confetti from 'canvas-confetti'
-import TOKENS from '../../../../data/constants';
+import Navbar from '../../../components/Navbar/Navbar';
 
 // Tamaño de tetris 10x20
 const ROWS = 20;
@@ -35,51 +32,45 @@ const Tetris = () => {
     return { shape, row: 0, col };
   };
 
-  const [board, setBoard] = useState(() => Array.from({ length: ROWS }, () => Array(COLUMNS).fill(null)));
-  const [currentPiece, setCurrentPiece] = useState({ shape: SHAPES[1], row: 0, col: 3 });
+  const [board, setBoard] = useState(() => Array.from({ length: ROWS }, () => Array(COLUMNS).fill(0)));
+  const [currentPiece, setCurrentPiece] = useState({ shape: SHAPES[0], row: 0, col: 3 });
 
   // Función para verificar si una posición es válida para la pieza actual
-  const isPositionValid = (rowOffset, colOffset) => {
-    const { shape, row, col } = currentPiece;
+// Función para verificar si una posición es válida para la pieza actual
+const isPositionValid = (rowOffset, colOffset) => {
+  const { shape, row, col } = currentPiece;
 
-    for (let r = 0; r < shape.length; r++) {
-      for (let c = 0; c < shape[r].length; c++) {
-        if (shape[r][c]) {
-          const newRow = row + r + rowOffset;
-          const newCol = col + c + colOffset;
+  for (let y = 0; y < shape.length; y++) {
+    for (let x = 0; x < shape[y].length; x++) {
+      if (shape[y][x]) {
+        const newRow = row + y + rowOffset;
+        const newCol = col + x + colOffset;
 
-          if (
-            newRow < 0 ||
-            newRow >= ROWS ||
-            newCol < 0 ||
-            newCol >= COLUMNS ||
-            board[newRow][newCol] !== null
-          ) {
-            return false;
-          }
+        if (
+          newRow < 0 ||
+          newRow >= ROWS ||
+          newCol < 0 ||
+          newCol >= COLUMNS
+        ) {
+          return false;
         }
       }
     }
+  }
 
-    return true;
-  };
+  return true;
+};
+
 
   const showpiece = () => {
-    const newBoard = Array.from({ length: ROWS }, () => Array(COLUMNS).fill(null));
-
-    // Copiar el contenido del tablero actual al nuevo tablero
-    board.forEach((row, r) => {
-      row.forEach((cell, c) => {
-        newBoard[r][c] = cell;
-      });
-    });
+    const newBoard = Array.from({ length: ROWS }, () => Array(COLUMNS).fill(0));
 
     // Colocar la pieza en su nueva posición
-    currentPiece.shape.forEach((row, r) => {
-      row.forEach((cell, c) => {
+    currentPiece.shape.forEach((row, y) => {
+      row.forEach((cell, x) => {
         if (cell) {
-          const newRow = currentPiece.row + r;
-          const newCol = currentPiece.col + c;
+          const newRow = currentPiece.row + y;
+          const newCol = currentPiece.col + x;
           newBoard[newRow][newCol] = 1;
         }
       });
@@ -91,10 +82,10 @@ const Tetris = () => {
   // Función para mover la pieza hacia abajo
   const moveDown = () => {
     if (isPositionValid(1, 0)) {
-      const newPiece = { ...currentPiece, row: currentPiece.row + 1 };
-      setCurrentPiece(newPiece);
+      setCurrentPiece((prevPiece) => ({ ...prevPiece, row: prevPiece.row + 1 }));
+      showpiece();
     } else {
-      // Fijar la pieza en su posición actual y limpiar filas completas
+      // Fijar la pieza en su posición actual
       placePiece();
     }
   };
@@ -102,23 +93,21 @@ const Tetris = () => {
   // Función para fijar la pieza en su posición actual y limpiar filas completas
   const placePiece = () => {
     const newBoard = [...board];
-  
-    // Colocar la pieza en su nueva posición en el tablero
-    currentPiece.shape.forEach((row, r) => {
-      row.forEach((cell, c) => {
+
+    currentPiece.shape.forEach((row, y) => {
+      row.forEach((cell, x) => {
         if (cell) {
-          const newRow = currentPiece.row + r;
-          const newCol = currentPiece.col + c;
+          const newRow = currentPiece.row + y;
+          const newCol = currentPiece.col + x;
           newBoard[newRow][newCol] = 1;
         }
       });
     });
-  
+
     setBoard(newBoard);
-  
+
     // Generar una nueva pieza
-    const newPiece = generateRandomPiece();
-    setCurrentPiece(newPiece);
+    setCurrentPiece(generateRandomPiece());
   };
 
   const start = () => {
@@ -126,17 +115,26 @@ const Tetris = () => {
   };
 
   const stop = () => {
-    setBoard(Array.from({ length: ROWS }, () => Array(COLUMNS).fill(null)));
+    setBoard(Array.from({ length: ROWS }, () => Array(COLUMNS).fill(0)));
   };
 
+  // Función para mover la pieza en la dirección especificada
+  const movePiece = (rowOffset, colOffset) => {
+    if (isPositionValid(rowOffset, colOffset)) {
+      setCurrentPiece((prevPiece) => ({
+        ...prevPiece,
+        row: prevPiece.row + rowOffset,
+        col: prevPiece.col + colOffset,
+      }));
+      showpiece();
+    }
+  };
   // Función para manejar eventos de teclado
   const handleKeyPress = useCallback((event) => {
-    if (event.key === 'ArrowLeft' && isPositionValid(0, -1)) {
-      setCurrentPiece((prevPiece) => ({ ...prevPiece, col: prevPiece.col - 1 }));
-      showpiece();
-    } else if (event.key === 'ArrowRight' && isPositionValid(0, 1)) {
-      setCurrentPiece((prevPiece) => ({ ...prevPiece, col: prevPiece.col + 1 }));
-      showpiece();
+    if (event.key === 'ArrowLeft') {
+      movePiece(0, -1); // Mover hacia la izquierda
+    } else if (event.key === 'ArrowRight') {
+      movePiece(0, 1); // Mover hacia la derecha
     } else if (event.key === 'ArrowDown') {
       moveDown();
     } else if (event.key === 'ArrowUp') {
@@ -161,17 +159,8 @@ const Tetris = () => {
     };
   }, [handleKeyPress]);
 
-  // Iniciar el juego generando la primera pieza
-  useEffect(() => {
-    if (!currentPiece.shape.length) {
-      placePiece();
-    }
-  }, []);
-
   // Renderizar el tablero de juego
   const renderBoard = useMemo(() => {
-    console.log("renderBoard");
-    console.log(board);
     return board.map((row, rowIndex) => (
       <div className="row" key={rowIndex}>
         {row.map((cell, colIndex) => (
