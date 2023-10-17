@@ -1,2 +1,2 @@
 ## Web hecha con react y vite.
-Puedes probarla [aquí](http://diegomar.duckdns.org:4000/home).
+Puedes probarla [aquí](https://diegomardev.com).
